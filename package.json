@@ -2,7 +2,11 @@
   "name": "sitewhere2-rest-api",
   "version": "2.0.0",
   "description": "Provides promise-based access to SiteWhere 2.x REST APIs",
-  "main": "src/index.js",
+  "main": "dist/sitewhere2-rest-api.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sitewhere/sitewhere2-rest-api.git"
@@ -14,11 +18,23 @@
   ],
   "author": "Derek Adams <derek.adams@sitewhere.com>",
   "license": "Apache-2.0",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/sitewhere/sitewhere2-rest-api/issues"
   },
   "homepage": "https://github.com/sitewhere/sitewhere2-rest-api#readme",
   "dependencies": {
     "axios": "^0.16.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
   }
 }
