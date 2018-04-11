@@ -1,0 +1,24 @@
+{
+  "name": "sitewhere2-rest-api",
+  "version": "2.0.0",
+  "description": "Provides promise-based access to SiteWhere 2.x REST APIs",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sitewhere/sitewhere2-rest-api.git"
+  },
+  "keywords": [
+    "sitewhere",
+    "rest",
+    "api"
+  ],
+  "author": "Derek Adams <derek.adams@sitewhere.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/sitewhere/sitewhere2-rest-api/issues"
+  },
+  "homepage": "https://github.com/sitewhere/sitewhere2-rest-api#readme",
+  "dependencies": {
+    "axios": "^0.16.2"
+  }
+}
