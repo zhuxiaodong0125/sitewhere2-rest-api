@@ -1,8 +1,8 @@
 {
   "name": "sitewhere2-rest-api",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Provides promise-based access to SiteWhere 2.x REST APIs",
-  "main": "dist/sitewhere2-rest-api.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
