@@ -5,6 +5,34 @@ export {
 } from './sitewhere-auth-api'
 
 export {
+  createCustomerType,
+  getCustomerType,
+  updateCustomerType,
+  listCustomerTypes,
+  deleteCustomerType
+} from './sitewhere-customer-types-api'
+
+export {
+  createCustomer,
+  getCustomer,
+  updateCustomer,
+  listCustomers,
+  deleteCustomer,
+  listAssignmentsForCustomer,
+  listLocationsForCustomer,
+  listMeasurementsForCustomer,
+  listAlertsForCustomer
+} from './sitewhere-customers-api'
+
+export {
+  createAreaType,
+  getAreaType,
+  updateAreaType,
+  listAreaTypes,
+  deleteAreaType
+} from './sitewhere-area-types-api'
+
+export {
   createArea,
   getArea,
   updateArea,
@@ -20,14 +48,6 @@ export {
   updateZone,
   deleteZone
 } from './sitewhere-areas-api'
-
-export {
-  createAreaType,
-  getAreaType,
-  updateAreaType,
-  listAreaTypes,
-  deleteAreaType
-} from './sitewhere-area-types-api'
 
 export {
   createAsset,
