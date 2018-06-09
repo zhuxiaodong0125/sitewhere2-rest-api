@@ -42,10 +42,10 @@ export {
   listLocationsForArea,
   listMeasurementsForArea,
   listAlertsForArea,
-  listZonesForArea,
   createZone,
   getZone,
   updateZone,
+  listZones,
   deleteZone
 } from './sitewhere-areas-api'
 
