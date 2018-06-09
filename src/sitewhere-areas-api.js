@@ -101,21 +101,10 @@ export function listAlertsForArea (axios, areaToken, paging) {
 }
 
 /**
- * List zones for an area.
- */
-export function listZonesForArea (axios, areaToken, paging) {
-  let query = ''
-  if (paging) {
-    query += '?' + paging
-  }
-  return restAuthGet(axios, 'areas/' + areaToken + '/zones' + query)
-}
-
-/**
  * Create zone.
  */
-export function createZone (axios, areaToken, payload) {
-  return restAuthPost(axios, '/areas/' + areaToken + '/zones', payload)
+export function createZone (axios, payload) {
+  return restAuthPost(axios, '/zones', payload)
 }
 
 /**
@@ -130,6 +119,19 @@ export function getZone (axios, zoneToken) {
  */
 export function updateZone (axios, zoneToken, payload) {
   return restAuthPut(axios, '/zones/' + zoneToken, payload)
+}
+
+/**
+ * List zones based on criteria.
+ */
+export function listZones (axios, options, paging) {
+  let query = ''
+  query += (options.areaToken)
+    ? '?areaToken=' + options.areaToken : '?all=true'
+  if (paging) {
+    query += '&' + paging
+  }
+  return restAuthGet(axios, 'zones' + query)
 }
 
 /**
