@@ -118,19 +118,25 @@ export {
   getDeviceTypeProtobuf,
   updateDeviceType,
   listDeviceTypes,
-  deleteDeviceType,
+  deleteDeviceType
+} from './sitewhere-device-types-api'
+
+export {
   createDeviceCommand,
   getDeviceCommand,
   listDeviceCommands,
   updateDeviceCommand,
   listDeviceCommandsByNamespace,
-  deleteDeviceCommand,
+  deleteDeviceCommand
+} from './sitewhere-device-commands-api'
+
+export {
   createDeviceStatus,
   getDeviceStatus,
   listDeviceStatuses,
   updateDeviceStatus,
   deleteDeviceStatus
-} from './sitewhere-device-types-api'
+} from './sitewhere-device-statuses-api'
 
 export {
   getTopology,
