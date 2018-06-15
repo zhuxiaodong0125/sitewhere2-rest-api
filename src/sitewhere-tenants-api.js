@@ -63,6 +63,13 @@ export function getTenantTemplates (axios) {
 }
 
 /**
+ * Get list of available dataset templates.
+ */
+export function getDatasetTemplates (axios) {
+  return restAuthGet(axios, 'tenants/datasets')
+}
+
+/**
  * Get current configuration for tenant.
  */
 export function getTenantConfiguration (axios, tenantId) {

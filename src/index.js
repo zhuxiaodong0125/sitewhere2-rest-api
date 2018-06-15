@@ -171,7 +171,8 @@ export {
   updateTenant,
   listTenants,
   deleteTenant,
-  getTenantTemplates
+  getTenantTemplates,
+  getDatasetTemplates
 } from './sitewhere-tenants-api'
 
 export {
