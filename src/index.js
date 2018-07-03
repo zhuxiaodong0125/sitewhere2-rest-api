@@ -139,6 +139,10 @@ export {
 } from './sitewhere-device-statuses-api'
 
 export {
+  searchDeviceStates
+} from './sitewhere-device-state-api'
+
+export {
   getTopology,
   getGlobalTopology,
   getTenantTopology,
