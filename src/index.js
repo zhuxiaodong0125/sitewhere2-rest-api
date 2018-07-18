@@ -74,6 +74,7 @@ export {
   deleteDeviceAssignment,
   createMeasurementsForAssignment,
   listMeasurementsForAssignment,
+  listMeasurementsForAssignmentAsChartSeries,
   createLocationForAssignment,
   listLocationsForAssignment,
   createAlertForAssignment,

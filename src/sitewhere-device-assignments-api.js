@@ -91,7 +91,7 @@ export function listMeasurementsForAssignmentAsChartSeries (axios, token,
   }
   if (mxIds) {
     for (var i = 0; i < mxIds.length; i++) {
-      query += '&measurmentIds=' + mxIds[i]
+      query += '&measurementIds=' + mxIds[i]
     }
   }
   return restAuthGet(axios, 'assignments/' + token + '/measurements/series' + query)
