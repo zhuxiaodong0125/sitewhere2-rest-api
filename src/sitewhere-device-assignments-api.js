@@ -24,9 +24,11 @@ export function listDeviceAssignments (axios, options, paging) {
   let query = ''
   query += (options.includeDevice)
     ? '?includeDevice=true' : '?includeDevice=false'
+  query += (options.includeCustomer) ? '&includeCustomer=true' : ''
   query += (options.includeArea) ? '&includeArea=true' : ''
   query += (options.includeAsset) ? '&includeAsset=true' : ''
   query += (options.deviceToken) ? '&deviceToken=' + options.deviceToken : ''
+  query += (options.customerToken) ? '&customerToken=' + options.customerToken : ''
   query += (options.areaToken) ? '&areaToken=' + options.areaToken : ''
   query += (options.assetToken) ? '&assetToken=' + options.assetToken : ''
   if (paging) {
@@ -76,6 +78,23 @@ export function listMeasurementsForAssignment (axios, token, paging) {
     query += '?' + paging
   }
   return restAuthGet(axios, 'assignments/' + token + '/measurements' + query)
+}
+
+/**
+ * List measurement events for an assignment as a chart series.
+ */
+export function listMeasurementsForAssignmentAsChartSeries (axios, token,
+  mxIds, paging) {
+  let query = ''
+  if (paging) {
+    query += '?' + paging
+  }
+  if (mxIds) {
+    for (var i = 0; i < mxIds.length; i++) {
+      query += '&measurmentIds=' + mxIds[i]
+    }
+  }
+  return restAuthGet(axios, 'assignments/' + token + '/measurements/series' + query)
 }
 
 /**
