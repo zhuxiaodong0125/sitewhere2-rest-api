@@ -1,6 +1,6 @@
 {
   "name": "sitewhere2-rest-api",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "Provides promise-based access to SiteWhere 2.x REST APIs",
   "main": "src/index.js",
   "scripts": {

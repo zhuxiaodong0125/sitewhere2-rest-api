@@ -62,13 +62,11 @@ export function deleteDevice (axios, token, force) {
  * List assignment history for a device.
  */
 export function listDeviceAssignmentHistory (axios, token, options, paging) {
-  let query = ''
-  query += (options.includeAsset)
-    ? '?includeAsset=true' : '?includeAsset=false'
-  query += (options.includeDevice)
-    ? '&includeDevice=true' : '&includeDevice=false'
-  query += (options.includeSite)
-    ? '&includeSite=true' : '&includeSite=false'
+  let query = randomSeedQuery()
+  query += (options.includeDevice) ? '&includeDevice=true' : ''
+  query += (options.includeCustomer) ? '&includeCustomer=true' : ''
+  query += (options.includeArea) ? '&includeArea=true' : ''
+  query += (options.includeAsset) ? '?includeAsset=true' : ''
   if (paging) {
     query += '&' + paging
   }
