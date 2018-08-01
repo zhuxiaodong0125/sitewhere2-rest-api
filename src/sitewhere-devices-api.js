@@ -1,7 +1,13 @@
 /**
  * API calls associated with SiteWhere device assignments.
  */
-import {restAuthGet, restAuthPost, restAuthDelete, restAuthPut} from './sitewhere-rest'
+import {
+  restAuthGet,
+  restAuthPost,
+  restAuthDelete,
+  restAuthPut,
+  randomSeedQuery
+} from './sitewhere-rest'
 
 /**
  * Create a device.
@@ -66,7 +72,7 @@ export function listDeviceAssignmentHistory (axios, token, options, paging) {
   query += (options.includeDevice) ? '&includeDevice=true' : ''
   query += (options.includeCustomer) ? '&includeCustomer=true' : ''
   query += (options.includeArea) ? '&includeArea=true' : ''
-  query += (options.includeAsset) ? '?includeAsset=true' : ''
+  query += (options.includeAsset) ? '&includeAsset=true' : ''
   if (paging) {
     query += '&' + paging
   }
