@@ -70,7 +70,7 @@ export function getTenantConfiguration (axios, tenantToken, identifier) {
  */
 export function updateTenantConfiguration (axios, tenantToken, identifier, config) {
   return restAuthPost(axios, 'instance/microservice/' + identifier +
-    '/tenants' + tenantToken + '/configuration', config)
+    '/tenants/' + tenantToken + '/configuration', config)
 }
 
 /**
