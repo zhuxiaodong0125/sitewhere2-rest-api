@@ -1,4 +1,10 @@
-import {restAuthGet, restAuthPost, restAuthPut, restAuthDelete} from './sitewhere-rest'
+import {
+  restAuthGet,
+  restAuthPost,
+  restAuthPut,
+  restAuthDelete,
+  randomSeedQuery
+} from './sitewhere-rest'
 
 /**
  * Create a new area.
@@ -55,12 +61,11 @@ export function deleteArea (axios, areaToken, force) {
  * List assignments for an area.
  */
 export function listAssignmentsForArea (axios, areaToken, options, paging) {
-  let query = ''
-  query += (options.includeDevice)
-    ? '?includeDevice=true' : '?includeDevice=false'
-  query += (options.includeAsset)
-    ? '&includeAsset=true' : '&includeAsset=false'
-  query += (options.status) ? '&status=' + options.status : ''
+  let query = randomSeedQuery()
+  query += (options.includeDevice) ? '&includeDevice=true' : ''
+  query += (options.includeCustomer) ? '&includeCustomer=true' : ''
+  query += (options.includeArea) ? '&includeArea=true' : ''
+  query += (options.includeAsset) ? '&includeAsset=true' : ''
   if (paging) {
     query += '&' + paging
   }
