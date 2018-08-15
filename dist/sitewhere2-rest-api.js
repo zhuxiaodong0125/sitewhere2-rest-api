@@ -1,8 +1,1541 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var s=t[r]={i:r,l:!1,exports:{}};return e[r].call(s.exports,s,s.exports,n),s.l=!0,s.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},n.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=47)}([function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.restAuthGet=function(e,t){return e.get(t)},t.restAuthPost=function(e,t,n){return e.post(t,n)},t.restAuthPostWithProgress=function(e,t,n,r){var s={onDownloadProgress:r};return e.post(t,n,s)},t.restAuthPut=function(e,t,n){return e.put(t,n)},t.restAuthDelete=function(e,t){return e.delete(t)},t.randomSeedQuery=function(){return"?rnd="+"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(e){var t=crypto.getRandomValues(new Uint8Array(1))[0]%16|0,n="x"===e?t:3&t|8;return n.toString(16)})};var r,s=n(8);(r=s)&&r.__esModule},function(e,t,n){"use strict";var r=n(7),s=n(44),u=Object.prototype.toString;function i(e){return"[object Array]"===u.call(e)}function o(e){return null!==e&&"object"==typeof e}function c(e){return"[object Function]"===u.call(e)}function a(e,t){if(null!==e&&void 0!==e)if("object"==typeof e||i(e)||(e=[e]),i(e))for(var n=0,r=e.length;n<r;n++)t.call(null,e[n],n,e);else for(var s in e)Object.prototype.hasOwnProperty.call(e,s)&&t.call(null,e[s],s,e)}e.exports={isArray:i,isArrayBuffer:function(e){return"[object ArrayBuffer]"===u.call(e)},isBuffer:s,isFormData:function(e){return"undefined"!=typeof FormData&&e instanceof FormData},isArrayBufferView:function(e){return"undefined"!=typeof ArrayBuffer&&ArrayBuffer.isView?ArrayBuffer.isView(e):e&&e.buffer&&e.buffer instanceof ArrayBuffer},isString:function(e){return"string"==typeof e},isNumber:function(e){return"number"==typeof e},isObject:o,isUndefined:function(e){return void 0===e},isDate:function(e){return"[object Date]"===u.call(e)},isFile:function(e){return"[object File]"===u.call(e)},isBlob:function(e){return"[object Blob]"===u.call(e)},isFunction:c,isStream:function(e){return o(e)&&c(e.pipe)},isURLSearchParams:function(e){return"undefined"!=typeof URLSearchParams&&e instanceof URLSearchParams},isStandardBrowserEnv:function(){return("undefined"==typeof navigator||"ReactNative"!==navigator.product)&&"undefined"!=typeof window&&"undefined"!=typeof document},forEach:a,merge:function e(){var t={};function n(n,r){"object"==typeof t[r]&&"object"==typeof n?t[r]=e(t[r],n):t[r]=n}for(var r=0,s=arguments.length;r<s;r++)a(arguments[r],n);return t},extend:function(e,t,n){return a(t,function(t,s){e[s]=n&&"function"==typeof t?r(t,n):t}),e},trim:function(e){return e.replace(/^\s*/,"").replace(/\s*$/,"")}}},function(e,t,n){"use strict";(function(t){var r=n(1),s=n(41),u={"Content-Type":"application/x-www-form-urlencoded"};function i(e,t){!r.isUndefined(e)&&r.isUndefined(e["Content-Type"])&&(e["Content-Type"]=t)}var o,c={adapter:("undefined"!=typeof XMLHttpRequest?o=n(6):void 0!==t&&(o=n(6)),o),transformRequest:[function(e,t){return s(t,"Content-Type"),r.isFormData(e)||r.isArrayBuffer(e)||r.isBuffer(e)||r.isStream(e)||r.isFile(e)||r.isBlob(e)?e:r.isArrayBufferView(e)?e.buffer:r.isURLSearchParams(e)?(i(t,"application/x-www-form-urlencoded;charset=utf-8"),e.toString()):r.isObject(e)?(i(t,"application/json;charset=utf-8"),JSON.stringify(e)):e}],transformResponse:[function(e){if("string"==typeof e)try{e=JSON.parse(e)}catch(e){}return e}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,validateStatus:function(e){return e>=200&&e<300}};c.headers={common:{Accept:"application/json, text/plain, */*"}},r.forEach(["delete","get","head"],function(e){c.headers[e]={}}),r.forEach(["post","put","patch"],function(e){c.headers[e]=r.merge(u)}),e.exports=c}).call(this,n(42))},function(e,t,n){"use strict";function r(e){this.message=e}r.prototype.toString=function(){return"Cancel"+(this.message?": "+this.message:"")},r.prototype.__CANCEL__=!0,e.exports=r},function(e,t,n){"use strict";e.exports=function(e){return!(!e||!e.__CANCEL__)}},function(e,t,n){"use strict";var r=n(39);e.exports=function(e,t,n,s,u){var i=new Error(e);return r(i,t,n,s,u)}},function(e,t,n){"use strict";var r=n(1),s=n(40),u=n(38),i=n(37),o=n(36),c=n(5),a="undefined"!=typeof window&&window.btoa&&window.btoa.bind(window)||n(35);e.exports=function(e){return new Promise(function(t,l){var f=e.data,d=e.headers;r.isFormData(f)&&delete d["Content-Type"];var p=new XMLHttpRequest,m="onreadystatechange",g=!1;if("undefined"==typeof window||!window.XDomainRequest||"withCredentials"in p||o(e.url)||(p=new window.XDomainRequest,m="onload",g=!0,p.onprogress=function(){},p.ontimeout=function(){}),e.auth){var v=e.auth.username||"",y=e.auth.password||"";d.Authorization="Basic "+a(v+":"+y)}if(p.open(e.method.toUpperCase(),u(e.url,e.params,e.paramsSerializer),!0),p.timeout=e.timeout,p[m]=function(){if(p&&(4===p.readyState||g)&&(0!==p.status||p.responseURL&&0===p.responseURL.indexOf("file:"))){var n="getAllResponseHeaders"in p?i(p.getAllResponseHeaders()):null,r={data:e.responseType&&"text"!==e.responseType?p.response:p.responseText,status:1223===p.status?204:p.status,statusText:1223===p.status?"No Content":p.statusText,headers:n,config:e,request:p};s(t,l,r),p=null}},p.onerror=function(){l(c("Network Error",e,null,p)),p=null},p.ontimeout=function(){l(c("timeout of "+e.timeout+"ms exceeded",e,"ECONNABORTED",p)),p=null},r.isStandardBrowserEnv()){var A=n(34),h=(e.withCredentials||o(e.url))&&e.xsrfCookieName?A.read(e.xsrfCookieName):void 0;h&&(d[e.xsrfHeaderName]=h)}if("setRequestHeader"in p&&r.forEach(d,function(e,t){void 0===f&&"content-type"===t.toLowerCase()?delete d[t]:p.setRequestHeader(t,e)}),e.withCredentials&&(p.withCredentials=!0),e.responseType)try{p.responseType=e.responseType}catch(t){if("json"!==e.responseType)throw t}"function"==typeof e.onDownloadProgress&&p.addEventListener("progress",e.onDownloadProgress),"function"==typeof e.onUploadProgress&&p.upload&&p.upload.addEventListener("progress",e.onUploadProgress),e.cancelToken&&e.cancelToken.promise.then(function(e){p&&(p.abort(),l(e),p=null)}),void 0===f&&(f=null),p.send(f)})}},function(e,t,n){"use strict";e.exports=function(e,t){return function(){for(var n=new Array(arguments.length),r=0;r<n.length;r++)n[r]=arguments[r];return e.apply(t,n)}}},function(e,t,n){e.exports=n(45)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createUser=function(e,t){return(0,r.restAuthPost)(e,"/users",t)},t.updateUser=function(e,t,n){return(0,r.restAuthPut)(e,"/users/"+t,n)},t.getUser=function(e,t){return(0,r.restAuthGet)(e,"users/"+t)},t.deleteUser=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"users/"+t+s)},t.listUsers=function(e,t,n){var s="";s+=t?"?includeDeleted=true":"?includeDeleted=false",n&&(s+="&count="+n);return(0,r.restAuthGet)(e,"users"+s)},t.listUserTenants=function(e,t,n){var s="";n&&(s+="?includeRuntimeInfo=true");return(0,r.restAuthGet)(e,"users/"+t+"/tenants"+s)},t.getAuthoritiesHierarchy=function(e){return(0,r.restAuthGet)(e,"authorities/hierarchy")};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createTenant=function(e,t){return(0,r.restAuthPost)(e,"/tenants",t)},t.getTenant=function(e,t){return(0,r.restAuthGet)(e,"tenants/"+t)},t.updateTenant=function(e,t,n){return(0,r.restAuthPut)(e,"tenants/"+t,n)},t.listTenants=function(e,t,n,s,u){var i="";i+=s?"?includeRuntimeInfo=true":"?includeRuntimeInfo=false",t&&(i+="&textSearch="+t);n&&(i+="&authUserId="+n);u&&(i+="&"+u);return(0,r.restAuthGet)(e,"tenants"+i)},t.deleteTenant=function(e,t,n){var s="";return s+=n?"?force=true":"?force=false",(0,r.restAuthDelete)(e,"tenants/"+t+s)},t.getTenantTemplates=function(e){return(0,r.restAuthGet)(e,"tenants/templates")},t.getDatasetTemplates=function(e){return(0,r.restAuthGet)(e,"tenants/datasets")},t.getTenantConfiguration=function(e,t){return(0,r.restAuthGet)(e,"tenants/"+t+"/engine/configuration/json")},t.getTenantConfigurationModel=function(e){return(0,r.restAuthGet)(e,"tenants/configuration/model")};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createSchedule=function(e,t){return(0,r.restAuthPost)(e,"schedules",t)},t.getSchedule=function(e,t){return(0,r.restAuthGet)(e,"schedules/"+t)},t.updateSchedule=function(e,t,n){return(0,r.restAuthPut)(e,"schedules/"+t,n)},t.deleteSchedule=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"schedules/"+t+s)},t.listSchedules=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"schedules"+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.getTopology=function(e){return(0,r.restAuthGet)(e,"instance/topology")},t.getGlobalTopology=function(e){return(0,r.restAuthGet)(e,"instance/topology/global")},t.getTenantTopology=function(e){return(0,r.restAuthGet)(e,"instance/topology/tenant")},t.getMicroserviceTenantRuntimeState=function(e,t,n){return(0,r.restAuthGet)(e,"instance/microservice/"+t+"/tenants/"+n+"/state")},t.getConfigurationModel=function(e,t){return(0,r.restAuthGet)(e,"instance/microservice/"+t+"/configuration/model")},t.getGlobalConfiguration=function(e,t){return(0,r.restAuthGet)(e,"instance/microservice/"+t+"/configuration")},t.getTenantConfiguration=function(e,t,n){return(0,r.restAuthGet)(e,"instance/microservice/"+n+"/configuration/"+t)},t.updateGlobalConfiguration=function(e,t,n){return(0,r.restAuthPost)(e,"instance/microservice/"+t+"/configuration",n)},t.updateTenantConfiguration=function(e,t,n,s){return(0,r.restAuthPost)(e,"instance/microservice/"+n+"/configuration/"+t,s)},t.listTenantScriptMetadata=function(e,t){return(0,r.restAuthGet)(e,"instance/scripting/tenants/"+t+"/scripts")},t.getTenantScriptMetadata=function(e,t,n){return(0,r.restAuthGet)(e,"instance/scripting/tenants/"+t+"/scripts/"+n)},t.createTenantScript=function(e,t,n){return(0,r.restAuthPost)(e,"instance/scripting/tenants/"+t+"/scripts/",n)},t.getTenantScriptContent=function(e,t,n,s){return(0,r.restAuthGet)(e,"instance/scripting/tenants/"+t+"/scripts/"+n+"/versions/"+s+"/content")},t.updateTenantScript=function(e,t,n,s,u){return(0,r.restAuthPost)(e,"instance/scripting/tenants/"+t+"/scripts/"+n+"/versions/"+s,u)},t.cloneTenantScript=function(e,t,n,s,u){return(0,r.restAuthPost)(e,"instance/scripting/tenants/"+t+"/scripts/"+n+"/versions/"+s+"/clone",u)},t.activateTenantScript=function(e,t,n,s){return(0,r.restAuthPost)(e,"instance/scripting/tenants/"+t+"/scripts/"+n+"/versions/"+s+"/activate",null)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.searchDeviceStates=function(e,t,n){var s=(0,r.randomSeedQuery)();return s+=n.includeDevice?"&includeDevice=true":"",s+=n.includeDeviceType?"&includeDeviceType=true":"",s+=n.includeDeviceAssignment?"&includeDeviceAssignment=true":"",s+=n.includeCustomer?"&includeCustomer=true":"",s+=n.includeArea?"&includeArea=true":"",s+=n.includeAsset?"&includeAsset=true":"",s+=n.includeEventDetails?"&includeEventDetails=true":"",(0,r.restAuthPost)(e,"devicestates/search"+s,t)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createDeviceStatus=function(e,t){return(0,r.restAuthPost)(e,"/statuses",t)},t.getDeviceStatus=function(e,t){return(0,r.restAuthGet)(e,"/statuses/"+t)},t.updateDeviceStatus=function(e,t,n){return(0,r.restAuthPut)(e,"/statuses/"+t,n)},t.listDeviceStatuses=function(e,t){var n="";return n+=t.deviceTypeToken?"?deviceTypeToken="+t.deviceTypeToken:"",(0,r.restAuthGet)(e,"/statuses"+n)},t.deleteDeviceStatus=function(e,t){return(0,r.restAuthDelete)(e,"/statuses/"+t)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createDeviceCommand=function(e,t){return(0,r.restAuthPost)(e,"/commands",t)},t.getDeviceCommand=function(e,t){return(0,r.restAuthGet)(e,"/commands/"+t)},t.updateDeviceCommand=function(e,t,n){return(0,r.restAuthPut)(e,"/commands/"+t,n)},t.listDeviceCommands=function(e,t){var n="";return n+=t.deviceTypeToken?"?deviceTypeToken="+t.deviceTypeToken:"",(0,r.restAuthGet)(e,"/commands"+n)},t.listDeviceCommandsByNamespace=function(e,t){var n="";return n+=t.deviceTypeToken?"?deviceTypeToken="+t.deviceTypeToken:"",(0,r.restAuthGet)(e,"/commands/namespaces"+n)},t.deleteDeviceCommand=function(e,t,n){var s="";return s+=n?"?force=true":"?force=false",(0,r.restAuthDelete)(e,"commands/"+t+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createDeviceType=function(e,t){return(0,r.restAuthPost)(e,"/devicetypes",t)},t.getDeviceType=function(e,t){return(0,r.restAuthGet)(e,"/devicetypes/"+t)},t.getDeviceTypeProtobuf=function(e,t){return(0,r.restAuthGet)(e,"/devicetypes/"+t+"/proto")},t.updateDeviceType=function(e,t,n){return(0,r.restAuthPut)(e,"/devicetypes/"+t,n)},t.listDeviceTypes=function(e,t,n,s){var u="";u+=t?"?includeDeleted=true":"?includeDeleted=false",u+=n?"&includeAsset=true":"&includeAsset=false",s&&(u+="&"+s);return(0,r.restAuthGet)(e,"devicetypes"+u)},t.deleteDeviceType=function(e,t,n){var s="";return s+=n?"?force=true":"?force=false",(0,r.restAuthDelete)(e,"devicetypes/"+t+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createDeviceGroup=function(e,t){return(0,r.restAuthPost)(e,"/devicegroups",t)},t.updateDeviceGroup=function(e,t,n){return(0,r.restAuthPut)(e,"/devicegroups/"+t,n)},t.getDeviceGroup=function(e,t){return(0,r.restAuthGet)(e,"/devicegroups/"+t)},t.listDeviceGroups=function(e,t,n,s){var u="";u+=n?"?includeDeleted=true":"?includeDeleted=false",t&&(u+="&role="+t);s&&(u+="&"+s);return(0,r.restAuthGet)(e,"devicegroups"+u)},t.listDeviceGroupElements=function(e,t,n,s){var u="";u+=n?"?includeDetails=true":"?includeDetails=false",s&&(u+="&"+s);return(0,r.restAuthGet)(e,"devicegroups/"+t+"/elements"+u)},t.addDeviceGroupElement=function(e,t,n){return(0,r.restAuthPut)(e,"devicegroups/"+t+"/elements",n)},t.deleteDeviceGroupElement=function(e,t,n){return(0,r.restAuthDelete)(e,"devicegroups/"+t+"/elements/"+n)},t.deleteDeviceGroup=function(e,t,n){var s="";return s+=n?"?force=true":"?force=false",(0,r.restAuthDelete)(e,"devicegroups/"+t+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createDevice=function(e,t){return(0,r.restAuthPost)(e,"/devices",t)},t.updateDevice=function(e,t,n){return(0,r.restAuthPut)(e,"/devices/"+t,n)},t.listDevices=function(e,t,n){var s="";s+=t.includeDeleted?"?includeDeleted=true":"?includeDeleted=false",s+=t.excludeAssigned?"&excludeAssigned=true":"",s+=t.includeDeviceType?"&includeDeviceType=true":"",s+=t.includeAssignment?"&includeAssignment=true":" ",s+=t.area?"&area="+t.area:"",s+=t.deviceType?"&deviceType="+t.deviceType:"",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"devices"+s)},t.getDevice=function(e,t,n){var s="";return s+=n.includeDeviceType?"?includeDeviceType=true":"?includeDeviceType=false",s+=n.includeAssignment?"&includeAssignment=true":"",s+=n.includeAsset?"&includeAsset=true":"",s+=n.includeNested?"&includeNested=true":"",(0,r.restAuthGet)(e,"/devices/"+t+s)},t.deleteDevice=function(e,t,n){var s="";return s+=n?"?force=true":"?force=false",(0,r.restAuthDelete)(e,"devices/"+t+s)},t.listDeviceAssignmentHistory=function(e,t,n,s){var u=randomSeedQuery();u+=n.includeDevice?"&includeDevice=true":"",u+=n.includeCustomer?"&includeCustomer=true":"",u+=n.includeArea?"&includeArea=true":"",u+=n.includeAsset?"?includeAsset=true":"",s&&(u+="&"+s);return(0,r.restAuthGet)(e,"devices/"+t+"/assignments"+u)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.getBatchOperation=function(e,t){return(0,r.restAuthGet)(e,"batch/"+t)},t.listBatchOperations=function(e,t,n,s){var u="";u+=n?"?includeDeleted=true":"?includeDeleted=false",s&&(u+="&"+s);return(0,r.restAuthGet)(e,"batch/"+u)},t.listBatchOperationElements=function(e,t,n,s){var u="";u+=n.includeDevice?"?includeDevice=true":"?includeDevice=false",s&&(u+="&"+s);return(0,r.restAuthGet)(e,"batch/"+t+"/elements"+u)},t.createBatchCommandInvocation=function(e,t){return(0,r.restAuthPost)(e,"/batch/command",t)},t.createBatchCommandByCriteria=function(e,t,n){var s="";return s+=t.scheduleToken?"?scheduleToken="+t.scheduleToken:"",(0,r.restAuthPost)(e,"/batch/command/criteria"+s,n)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createDeviceAssignment=function(e,t){return(0,r.restAuthPost)(e,"assignments/",t)},t.getDeviceAssignment=function(e,t){return(0,r.restAuthGet)(e,"assignments/"+t)},t.listDeviceAssignments=function(e,t,n){var s="";s+=t.includeDevice?"?includeDevice=true":"?includeDevice=false",s+=t.includeCustomer?"&includeCustomer=true":"",s+=t.includeArea?"&includeArea=true":"",s+=t.includeAsset?"&includeAsset=true":"",s+=t.deviceToken?"&deviceToken="+t.deviceToken:"",s+=t.customerToken?"&customerToken="+t.customerToken:"",s+=t.areaToken?"&areaToken="+t.areaToken:"",s+=t.assetToken?"&assetToken="+t.assetToken:"",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"assignments"+s)},t.releaseAssignment=function(e,t){return(0,r.restAuthPost)(e,"/assignments/"+t+"/end",null)},t.missingAssignment=function(e,t){return(0,r.restAuthPost)(e,"/assignments/"+t+"/missing",null)},t.deleteDeviceAssignment=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"assignments/"+t+s)},t.createMeasurementsForAssignment=function(e,t,n){return(0,r.restAuthPost)(e,"assignments/"+t+"/measurements",n)},t.listMeasurementsForAssignment=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"assignments/"+t+"/measurements"+s)},t.listMeasurementsForAssignmentAsChartSeries=function(e,t,n,s){var u="";s&&(u+="?"+s);if(n)for(var i=0;i<n.length;i++)u+="&measurementIds="+n[i];return(0,r.restAuthGet)(e,"assignments/"+t+"/measurements/series"+u)},t.createLocationForAssignment=function(e,t,n){return(0,r.restAuthPost)(e,"assignments/"+t+"/locations",n)},t.listLocationsForAssignment=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"assignments/"+t+"/locations"+s)},t.createAlertForAssignment=function(e,t,n){return(0,r.restAuthPost)(e,"assignments/"+t+"/alerts",n)},t.listAlertsForAssignment=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"assignments/"+t+"/alerts"+s)},t.createCommandInvocationForAssignment=function(e,t,n){return(0,r.restAuthPost)(e,"assignments/"+t+"/invocations",n)},t.scheduleCommandInvocation=function(e,t,n,s){return(0,r.restAuthPost)(e,"assignments/"+t+"/invocations/schedules/"+n,s)},t.listCommandInvocationsForAssignment=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"assignments/"+t+"/invocations"+s)},t.listCommandResponsesForAssignment=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"assignments/"+t+"/responses"+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createAssetType=function(e,t){return(0,r.restAuthPost)(e,"assettypes/",t)},t.getAssetType=function(e,t){return(0,r.restAuthGet)(e,"assettypes/"+t)},t.updateAssetType=function(e,t,n){return(0,r.restAuthPut)(e,"assettypes/"+t,n)},t.listAssetTypes=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"assettypes"+s)},t.deleteAssetType=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"assettypes/"+t+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createAsset=function(e,t){return(0,r.restAuthPost)(e,"/assets",t)},t.getAsset=function(e,t){return(0,r.restAuthGet)(e,"assets/"+encodeURIComponent(t))},t.updateAsset=function(e,t,n){return(0,r.restAuthPut)(e,"assets/"+t,n)},t.listAssets=function(e,t,n){var s="";s+=t.includeAssetType?"?includeAssetType=true":"?includeAssetType=false",s+=t.assetTypeToken?"&assetTypeToken="+t.assetTypeToken:"",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"assets"+s)},t.deleteAsset=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"assets/"+t+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createArea=function(e,t){return(0,r.restAuthPost)(e,"areas",t)},t.getArea=function(e,t){return(0,r.restAuthGet)(e,"areas/"+t)},t.updateArea=function(e,t,n){return(0,r.restAuthPut)(e,"areas/"+t,n)},t.listAreas=function(e,t,n){var s="";s+=t.rootOnly?"?rootOnly=true":"?rootOnly=false",s+=t.parentAreaToken?"&parentAreaToken="+t.parentAreaToken:"",s+=t.areaTypeToken?"&areaTypeToken="+t.areaTypeToken:"",s+=t.includeAreaType?"&includeAreaType=true":"",s+=t.includeAssignments?"&includeAssignments=true":"",s+=t.includeZones?"&includeZones=true":"",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"areas"+s)},t.deleteArea=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"areas/"+t+s)},t.listAssignmentsForArea=function(e,t,n,s){var u="";u+=n.includeDevice?"?includeDevice=true":"?includeDevice=false",u+=n.includeAsset?"&includeAsset=true":"&includeAsset=false",u+=n.status?"&status="+n.status:"",s&&(u+="&"+s);return(0,r.restAuthGet)(e,"areas/"+t+"/assignments"+u)},t.listLocationsForArea=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"areas/"+t+"/locations"+s)},t.listMeasurementsForArea=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"areas/"+t+"/measurements"+s)},t.listAlertsForArea=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"areas/"+t+"/alerts"+s)},t.createZone=function(e,t){return(0,r.restAuthPost)(e,"/zones",t)},t.getZone=function(e,t){return(0,r.restAuthGet)(e,"/zones/"+t)},t.updateZone=function(e,t,n){return(0,r.restAuthPut)(e,"/zones/"+t,n)},t.listZones=function(e,t,n){var s="";s+=t.areaToken?"?areaToken="+t.areaToken:"?all=true",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"zones"+s)},t.deleteZone=function(e,t){return(0,r.restAuthDelete)(e,"zones/"+t+"?force=true")};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createAreaType=function(e,t){return(0,r.restAuthPost)(e,"areatypes/",t)},t.getAreaType=function(e,t){return(0,r.restAuthGet)(e,"areatypes/"+t)},t.updateAreaType=function(e,t,n){return(0,r.restAuthPut)(e,"areatypes/"+t,n)},t.listAreaTypes=function(e,t,n){var s="";s+=t?"?includeContainedAreaTypes=true":"?includeContainedAreaTypes=false",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"areatypes"+s)},t.deleteAreaType=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"areatypes/"+t+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createCustomer=function(e,t){return(0,r.restAuthPost)(e,"customers",t)},t.getCustomer=function(e,t){return(0,r.restAuthGet)(e,"customers/"+t)},t.updateCustomer=function(e,t,n){return(0,r.restAuthPut)(e,"customers/"+t,n)},t.listCustomers=function(e,t,n){var s="";s+=t.rootOnly?"?rootOnly=true":"?rootOnly=false",s+=t.parentCustomerToken?"&parentCustomerToken="+t.parentCustomerToken:"",s+=t.customerTypeToken?"&customerTypeToken="+t.customerTypeToken:"",s+=t.includeCustomerType?"&includeCustomerType=true":"",s+=t.includeAssignments?"&includeAssignments=true":"",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"customers"+s)},t.deleteCustomer=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"customers/"+t+s)},t.listAssignmentsForCustomer=function(e,t,n,s){var u="";u+=n.includeDevice?"?includeDevice=true":"?includeDevice=false",u+=n.includeAsset?"&includeAsset=true":"&includeAsset=false",u+=n.status?"&status="+n.status:"",s&&(u+="&"+s);return(0,r.restAuthGet)(e,"customers/"+t+"/assignments"+u)},t.listLocationsForCustomer=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"customers/"+t+"/locations"+s)},t.listMeasurementsForCustomer=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"customers/"+t+"/measurements"+s)},t.listAlertsForCustomer=function(e,t,n){var s="";n&&(s+="?"+n);return(0,r.restAuthGet)(e,"customers/"+t+"/alerts"+s)};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.createCustomerType=function(e,t){return(0,r.restAuthPost)(e,"customertypes/",t)},t.getCustomerType=function(e,t){return(0,r.restAuthGet)(e,"customertypes/"+t)},t.updateCustomerType=function(e,t,n){return(0,r.restAuthPut)(e,"customertypes/"+t,n)},t.listCustomerTypes=function(e,t,n){var s="";s+=t?"?includeContainedCustomerTypes=true":"?includeContainedCustomerTypes=false",n&&(s+="&"+n);return(0,r.restAuthGet)(e,"customertypes"+s)},t.deleteCustomerType=function(e,t,n){var s="";n&&(s+="?force=true");return(0,r.restAuthDelete)(e,"customertypes/"+t+s)};var r=n(0)},function(e,t,n){"use strict";e.exports=function(e){return function(t){return e.apply(null,t)}}},function(e,t,n){"use strict";var r=n(3);function s(e){if("function"!=typeof e)throw new TypeError("executor must be a function.");var t;this.promise=new Promise(function(e){t=e});var n=this;e(function(e){n.reason||(n.reason=new r(e),t(n.reason))})}s.prototype.throwIfRequested=function(){if(this.reason)throw this.reason},s.source=function(){var e;return{token:new s(function(t){e=t}),cancel:e}},e.exports=s},function(e,t,n){"use strict";e.exports=function(e,t){return t?e.replace(/\/+$/,"")+"/"+t.replace(/^\/+/,""):e}},function(e,t,n){"use strict";e.exports=function(e){return/^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(e)}},function(e,t,n){"use strict";var r=n(1);e.exports=function(e,t,n){return r.forEach(n,function(n){e=n(e,t)}),e}},function(e,t,n){"use strict";var r=n(1),s=n(31),u=n(4),i=n(2);function o(e){e.cancelToken&&e.cancelToken.throwIfRequested()}e.exports=function(e){return o(e),e.headers=e.headers||{},e.data=s(e.data,e.headers,e.transformRequest),e.headers=r.merge(e.headers.common||{},e.headers[e.method]||{},e.headers||{}),r.forEach(["delete","get","head","post","put","patch","common"],function(t){delete e.headers[t]}),(e.adapter||i.adapter)(e).then(function(t){return o(e),t.data=s(t.data,t.headers,e.transformResponse),t},function(t){return u(t)||(o(e),t&&t.response&&(t.response.data=s(t.response.data,t.response.headers,e.transformResponse))),Promise.reject(t)})}},function(e,t,n){"use strict";var r=n(1);function s(){this.handlers=[]}s.prototype.use=function(e,t){return this.handlers.push({fulfilled:e,rejected:t}),this.handlers.length-1},s.prototype.eject=function(e){this.handlers[e]&&(this.handlers[e]=null)},s.prototype.forEach=function(e){r.forEach(this.handlers,function(t){null!==t&&e(t)})},e.exports=s},function(e,t,n){"use strict";var r=n(1);e.exports=r.isStandardBrowserEnv()?{write:function(e,t,n,s,u,i){var o=[];o.push(e+"="+encodeURIComponent(t)),r.isNumber(n)&&o.push("expires="+new Date(n).toGMTString()),r.isString(s)&&o.push("path="+s),r.isString(u)&&o.push("domain="+u),!0===i&&o.push("secure"),document.cookie=o.join("; ")},read:function(e){var t=document.cookie.match(new RegExp("(^|;\\s*)("+e+")=([^;]*)"));return t?decodeURIComponent(t[3]):null},remove:function(e){this.write(e,"",Date.now()-864e5)}}:{write:function(){},read:function(){return null},remove:function(){}}},function(e,t,n){"use strict";var r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";function s(){this.message="String contains an invalid character"}s.prototype=new Error,s.prototype.code=5,s.prototype.name="InvalidCharacterError",e.exports=function(e){for(var t,n,u=String(e),i="",o=0,c=r;u.charAt(0|o)||(c="=",o%1);i+=c.charAt(63&t>>8-o%1*8)){if((n=u.charCodeAt(o+=.75))>255)throw new s;t=t<<8|n}return i}},function(e,t,n){"use strict";var r=n(1);e.exports=r.isStandardBrowserEnv()?function(){var e,t=/(msie|trident)/i.test(navigator.userAgent),n=document.createElement("a");function s(e){var r=e;return t&&(n.setAttribute("href",r),r=n.href),n.setAttribute("href",r),{href:n.href,protocol:n.protocol?n.protocol.replace(/:$/,""):"",host:n.host,search:n.search?n.search.replace(/^\?/,""):"",hash:n.hash?n.hash.replace(/^#/,""):"",hostname:n.hostname,port:n.port,pathname:"/"===n.pathname.charAt(0)?n.pathname:"/"+n.pathname}}return e=s(window.location.href),function(t){var n=r.isString(t)?s(t):t;return n.protocol===e.protocol&&n.host===e.host}}():function(){return!0}},function(e,t,n){"use strict";var r=n(1);e.exports=function(e){var t,n,s,u={};return e?(r.forEach(e.split("\n"),function(e){s=e.indexOf(":"),t=r.trim(e.substr(0,s)).toLowerCase(),n=r.trim(e.substr(s+1)),t&&(u[t]=u[t]?u[t]+", "+n:n)}),u):u}},function(e,t,n){"use strict";var r=n(1);function s(e){return encodeURIComponent(e).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}e.exports=function(e,t,n){if(!t)return e;var u;if(n)u=n(t);else if(r.isURLSearchParams(t))u=t.toString();else{var i=[];r.forEach(t,function(e,t){null!==e&&void 0!==e&&(r.isArray(e)&&(t+="[]"),r.isArray(e)||(e=[e]),r.forEach(e,function(e){r.isDate(e)?e=e.toISOString():r.isObject(e)&&(e=JSON.stringify(e)),i.push(s(t)+"="+s(e))}))}),u=i.join("&")}return u&&(e+=(-1===e.indexOf("?")?"?":"&")+u),e}},function(e,t,n){"use strict";e.exports=function(e,t,n,r,s){return e.config=t,n&&(e.code=n),e.request=r,e.response=s,e}},function(e,t,n){"use strict";var r=n(5);e.exports=function(e,t,n){var s=n.config.validateStatus;n.status&&s&&!s(n.status)?t(r("Request failed with status code "+n.status,n.config,null,n.request,n)):e(n)}},function(e,t,n){"use strict";var r=n(1);e.exports=function(e,t){r.forEach(e,function(n,r){r!==t&&r.toUpperCase()===t.toUpperCase()&&(e[t]=n,delete e[r])})}},function(e,t){var n,r,s=e.exports={};function u(){throw new Error("setTimeout has not been defined")}function i(){throw new Error("clearTimeout has not been defined")}function o(e){if(n===setTimeout)return setTimeout(e,0);if((n===u||!n)&&setTimeout)return n=setTimeout,setTimeout(e,0);try{return n(e,0)}catch(t){try{return n.call(null,e,0)}catch(t){return n.call(this,e,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:u}catch(e){n=u}try{r="function"==typeof clearTimeout?clearTimeout:i}catch(e){r=i}}();var c,a=[],l=!1,f=-1;function d(){l&&c&&(l=!1,c.length?a=c.concat(a):f=-1,a.length&&p())}function p(){if(!l){var e=o(d);l=!0;for(var t=a.length;t;){for(c=a,a=[];++f<t;)c&&c[f].run();f=-1,t=a.length}c=null,l=!1,function(e){if(r===clearTimeout)return clearTimeout(e);if((r===i||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(e);try{r(e)}catch(t){try{return r.call(null,e)}catch(t){return r.call(this,e)}}}(e)}}function m(e,t){this.fun=e,this.array=t}function g(){}s.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];a.push(new m(e,t)),1!==a.length||l||o(p)},m.prototype.run=function(){this.fun.apply(null,this.array)},s.title="browser",s.browser=!0,s.env={},s.argv=[],s.version="",s.versions={},s.on=g,s.addListener=g,s.once=g,s.off=g,s.removeListener=g,s.removeAllListeners=g,s.emit=g,s.prependListener=g,s.prependOnceListener=g,s.listeners=function(e){return[]},s.binding=function(e){throw new Error("process.binding is not supported")},s.cwd=function(){return"/"},s.chdir=function(e){throw new Error("process.chdir is not supported")},s.umask=function(){return 0}},function(e,t,n){"use strict";var r=n(2),s=n(1),u=n(33),i=n(32),o=n(30),c=n(29);function a(e){this.defaults=e,this.interceptors={request:new u,response:new u}}a.prototype.request=function(e){"string"==typeof e&&(e=s.merge({url:arguments[0]},arguments[1])),(e=s.merge(r,this.defaults,{method:"get"},e)).method=e.method.toLowerCase(),e.baseURL&&!o(e.url)&&(e.url=c(e.baseURL,e.url));var t=[i,void 0],n=Promise.resolve(e);for(this.interceptors.request.forEach(function(e){t.unshift(e.fulfilled,e.rejected)}),this.interceptors.response.forEach(function(e){t.push(e.fulfilled,e.rejected)});t.length;)n=n.then(t.shift(),t.shift());return n},s.forEach(["delete","get","head","options"],function(e){a.prototype[e]=function(t,n){return this.request(s.merge(n||{},{method:e,url:t}))}}),s.forEach(["post","put","patch"],function(e){a.prototype[e]=function(t,n,r){return this.request(s.merge(r||{},{method:e,url:t,data:n}))}}),e.exports=a},function(e,t){function n(e){return!!e.constructor&&"function"==typeof e.constructor.isBuffer&&e.constructor.isBuffer(e)}
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-e.exports=function(e){return null!=e&&(n(e)||function(e){return"function"==typeof e.readFloatLE&&"function"==typeof e.slice&&n(e.slice(0,0))}(e)||!!e._isBuffer)}},function(e,t,n){"use strict";var r=n(1),s=n(7),u=n(43),i=n(2);function o(e){var t=new u(e),n=s(u.prototype.request,t);return r.extend(n,u.prototype,t),r.extend(n,t),n}var c=o(i);c.Axios=u,c.create=function(e){return o(r.merge(i,e))},c.Cancel=n(3),c.CancelToken=n(28),c.isCancel=n(4),c.all=function(e){return Promise.all(e)},c.spread=n(27),e.exports=c,e.exports.default=c},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.getJwt=function(e){return(0,r.restAuthGet)(e,"jwt")};var r=n(0)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.getAuthoritiesHierarchy=t.listUserTenants=t.listUsers=t.deleteUser=t.getUser=t.updateUser=t.createUser=t.getDatasetTemplates=t.getTenantTemplates=t.deleteTenant=t.listTenants=t.updateTenant=t.getTenant=t.createTenant=t.listSchedules=t.deleteSchedule=t.updateSchedule=t.getSchedule=t.createSchedule=t.activateTenantScript=t.cloneTenantScript=t.updateTenantScript=t.getTenantScriptContent=t.createTenantScript=t.getTenantScriptMetadata=t.listTenantScriptMetadata=t.updateTenantConfiguration=t.updateGlobalConfiguration=t.getTenantConfiguration=t.getGlobalConfiguration=t.getConfigurationModel=t.getMicroserviceTenantRuntimeState=t.getTenantTopology=void 0,t.getGlobalTopology=t.getTopology=t.searchDeviceStates=t.deleteDeviceStatus=t.updateDeviceStatus=t.listDeviceStatuses=t.getDeviceStatus=t.createDeviceStatus=t.deleteDeviceCommand=t.listDeviceCommandsByNamespace=t.updateDeviceCommand=t.listDeviceCommands=t.getDeviceCommand=t.createDeviceCommand=t.deleteDeviceType=t.listDeviceTypes=t.updateDeviceType=t.getDeviceTypeProtobuf=t.getDeviceType=t.createDeviceType=t.deleteDeviceGroup=t.deleteDeviceGroupElement=t.addDeviceGroupElement=t.listDeviceGroupElements=t.listDeviceGroups=t.getDeviceGroup=t.updateDeviceGroup=t.createDeviceGroup=t.listDeviceAssignmentHistory=t.deleteDevice=t.updateDevice=t.getDevice=t.listDevices=t.createDevice=t.createBatchCommandByCriteria=t.createBatchCommandInvocation=t.listBatchOperationElements=t.listBatchOperations=t.getBatchOperation=t.listCommandResponsesForAssignment=t.listCommandInvocationsForAssignment=t.scheduleCommandInvocation=t.createCommandInvocationForAssignment=t.listAlertsForAssignment=t.createAlertForAssignment=t.listLocationsForAssignment=t.createLocationForAssignment=t.listMeasurementsForAssignmentAsChartSeries=t.listMeasurementsForAssignment=t.createMeasurementsForAssignment=t.deleteDeviceAssignment=t.missingAssignment=t.releaseAssignment=t.listDeviceAssignments=t.getDeviceAssignment=t.createDeviceAssignment=t.deleteAssetType=t.listAssetTypes=t.updateAssetType=t.getAssetType=t.createAssetType=t.deleteAsset=t.listAssets=t.updateAsset=t.getAsset=t.createAsset=t.deleteZone=t.listZones=t.updateZone=t.getZone=t.createZone=t.listAlertsForArea=t.listMeasurementsForArea=t.listLocationsForArea=t.listAssignmentsForArea=t.deleteArea=t.listAreas=t.updateArea=t.getArea=t.createArea=t.deleteAreaType=t.listAreaTypes=t.updateAreaType=t.getAreaType=t.createAreaType=t.listAlertsForCustomer=t.listMeasurementsForCustomer=t.listLocationsForCustomer=t.listAssignmentsForCustomer=t.deleteCustomer=t.listCustomers=t.updateCustomer=t.getCustomer=t.createCustomer=t.deleteCustomerType=t.listCustomerTypes=t.updateCustomerType=t.getCustomerType=t.createCustomerType=t.getJwt=void 0;var r=n(46);Object.defineProperty(t,"getJwt",{enumerable:!0,get:function(){return r.getJwt}});var s=n(26);Object.defineProperty(t,"createCustomerType",{enumerable:!0,get:function(){return s.createCustomerType}}),Object.defineProperty(t,"getCustomerType",{enumerable:!0,get:function(){return s.getCustomerType}}),Object.defineProperty(t,"updateCustomerType",{enumerable:!0,get:function(){return s.updateCustomerType}}),Object.defineProperty(t,"listCustomerTypes",{enumerable:!0,get:function(){return s.listCustomerTypes}}),Object.defineProperty(t,"deleteCustomerType",{enumerable:!0,get:function(){return s.deleteCustomerType}});var u=n(25);Object.defineProperty(t,"createCustomer",{enumerable:!0,get:function(){return u.createCustomer}}),Object.defineProperty(t,"getCustomer",{enumerable:!0,get:function(){return u.getCustomer}}),Object.defineProperty(t,"updateCustomer",{enumerable:!0,get:function(){return u.updateCustomer}}),Object.defineProperty(t,"listCustomers",{enumerable:!0,get:function(){return u.listCustomers}}),Object.defineProperty(t,"deleteCustomer",{enumerable:!0,get:function(){return u.deleteCustomer}}),Object.defineProperty(t,"listAssignmentsForCustomer",{enumerable:!0,get:function(){return u.listAssignmentsForCustomer}}),Object.defineProperty(t,"listLocationsForCustomer",{enumerable:!0,get:function(){return u.listLocationsForCustomer}}),Object.defineProperty(t,"listMeasurementsForCustomer",{enumerable:!0,get:function(){return u.listMeasurementsForCustomer}}),Object.defineProperty(t,"listAlertsForCustomer",{enumerable:!0,get:function(){return u.listAlertsForCustomer}});var i=n(24);Object.defineProperty(t,"createAreaType",{enumerable:!0,get:function(){return i.createAreaType}}),Object.defineProperty(t,"getAreaType",{enumerable:!0,get:function(){return i.getAreaType}}),Object.defineProperty(t,"updateAreaType",{enumerable:!0,get:function(){return i.updateAreaType}}),Object.defineProperty(t,"listAreaTypes",{enumerable:!0,get:function(){return i.listAreaTypes}}),Object.defineProperty(t,"deleteAreaType",{enumerable:!0,get:function(){return i.deleteAreaType}});var o=n(23);Object.defineProperty(t,"createArea",{enumerable:!0,get:function(){return o.createArea}}),Object.defineProperty(t,"getArea",{enumerable:!0,get:function(){return o.getArea}}),Object.defineProperty(t,"updateArea",{enumerable:!0,get:function(){return o.updateArea}}),Object.defineProperty(t,"listAreas",{enumerable:!0,get:function(){return o.listAreas}}),Object.defineProperty(t,"deleteArea",{enumerable:!0,get:function(){return o.deleteArea}}),Object.defineProperty(t,"listAssignmentsForArea",{enumerable:!0,get:function(){return o.listAssignmentsForArea}}),Object.defineProperty(t,"listLocationsForArea",{enumerable:!0,get:function(){return o.listLocationsForArea}}),Object.defineProperty(t,"listMeasurementsForArea",{enumerable:!0,get:function(){return o.listMeasurementsForArea}}),Object.defineProperty(t,"listAlertsForArea",{enumerable:!0,get:function(){return o.listAlertsForArea}}),Object.defineProperty(t,"createZone",{enumerable:!0,get:function(){return o.createZone}}),Object.defineProperty(t,"getZone",{enumerable:!0,get:function(){return o.getZone}}),Object.defineProperty(t,"updateZone",{enumerable:!0,get:function(){return o.updateZone}}),Object.defineProperty(t,"listZones",{enumerable:!0,get:function(){return o.listZones}}),Object.defineProperty(t,"deleteZone",{enumerable:!0,get:function(){return o.deleteZone}});var c=n(22);Object.defineProperty(t,"createAsset",{enumerable:!0,get:function(){return c.createAsset}}),Object.defineProperty(t,"getAsset",{enumerable:!0,get:function(){return c.getAsset}}),Object.defineProperty(t,"updateAsset",{enumerable:!0,get:function(){return c.updateAsset}}),Object.defineProperty(t,"listAssets",{enumerable:!0,get:function(){return c.listAssets}}),Object.defineProperty(t,"deleteAsset",{enumerable:!0,get:function(){return c.deleteAsset}});var a=n(21);Object.defineProperty(t,"createAssetType",{enumerable:!0,get:function(){return a.createAssetType}}),Object.defineProperty(t,"getAssetType",{enumerable:!0,get:function(){return a.getAssetType}}),Object.defineProperty(t,"updateAssetType",{enumerable:!0,get:function(){return a.updateAssetType}}),Object.defineProperty(t,"listAssetTypes",{enumerable:!0,get:function(){return a.listAssetTypes}}),Object.defineProperty(t,"deleteAssetType",{enumerable:!0,get:function(){return a.deleteAssetType}});var l=n(20);Object.defineProperty(t,"createDeviceAssignment",{enumerable:!0,get:function(){return l.createDeviceAssignment}}),Object.defineProperty(t,"getDeviceAssignment",{enumerable:!0,get:function(){return l.getDeviceAssignment}}),Object.defineProperty(t,"listDeviceAssignments",{enumerable:!0,get:function(){return l.listDeviceAssignments}}),Object.defineProperty(t,"releaseAssignment",{enumerable:!0,get:function(){return l.releaseAssignment}}),Object.defineProperty(t,"missingAssignment",{enumerable:!0,get:function(){return l.missingAssignment}}),Object.defineProperty(t,"deleteDeviceAssignment",{enumerable:!0,get:function(){return l.deleteDeviceAssignment}}),Object.defineProperty(t,"createMeasurementsForAssignment",{enumerable:!0,get:function(){return l.createMeasurementsForAssignment}}),Object.defineProperty(t,"listMeasurementsForAssignment",{enumerable:!0,get:function(){return l.listMeasurementsForAssignment}}),Object.defineProperty(t,"listMeasurementsForAssignmentAsChartSeries",{enumerable:!0,get:function(){return l.listMeasurementsForAssignmentAsChartSeries}}),Object.defineProperty(t,"createLocationForAssignment",{enumerable:!0,get:function(){return l.createLocationForAssignment}}),Object.defineProperty(t,"listLocationsForAssignment",{enumerable:!0,get:function(){return l.listLocationsForAssignment}}),Object.defineProperty(t,"createAlertForAssignment",{enumerable:!0,get:function(){return l.createAlertForAssignment}}),Object.defineProperty(t,"listAlertsForAssignment",{enumerable:!0,get:function(){return l.listAlertsForAssignment}}),Object.defineProperty(t,"createCommandInvocationForAssignment",{enumerable:!0,get:function(){return l.createCommandInvocationForAssignment}}),Object.defineProperty(t,"scheduleCommandInvocation",{enumerable:!0,get:function(){return l.scheduleCommandInvocation}}),Object.defineProperty(t,"listCommandInvocationsForAssignment",{enumerable:!0,get:function(){return l.listCommandInvocationsForAssignment}}),Object.defineProperty(t,"listCommandResponsesForAssignment",{enumerable:!0,get:function(){return l.listCommandResponsesForAssignment}});var f=n(19);Object.defineProperty(t,"getBatchOperation",{enumerable:!0,get:function(){return f.getBatchOperation}}),Object.defineProperty(t,"listBatchOperations",{enumerable:!0,get:function(){return f.listBatchOperations}}),Object.defineProperty(t,"listBatchOperationElements",{enumerable:!0,get:function(){return f.listBatchOperationElements}}),Object.defineProperty(t,"createBatchCommandInvocation",{enumerable:!0,get:function(){return f.createBatchCommandInvocation}}),Object.defineProperty(t,"createBatchCommandByCriteria",{enumerable:!0,get:function(){return f.createBatchCommandByCriteria}});var d=n(18);Object.defineProperty(t,"createDevice",{enumerable:!0,get:function(){return d.createDevice}}),Object.defineProperty(t,"listDevices",{enumerable:!0,get:function(){return d.listDevices}}),Object.defineProperty(t,"getDevice",{enumerable:!0,get:function(){return d.getDevice}}),Object.defineProperty(t,"updateDevice",{enumerable:!0,get:function(){return d.updateDevice}}),Object.defineProperty(t,"deleteDevice",{enumerable:!0,get:function(){return d.deleteDevice}}),Object.defineProperty(t,"listDeviceAssignmentHistory",{enumerable:!0,get:function(){return d.listDeviceAssignmentHistory}});var p=n(17);Object.defineProperty(t,"createDeviceGroup",{enumerable:!0,get:function(){return p.createDeviceGroup}}),Object.defineProperty(t,"updateDeviceGroup",{enumerable:!0,get:function(){return p.updateDeviceGroup}}),Object.defineProperty(t,"getDeviceGroup",{enumerable:!0,get:function(){return p.getDeviceGroup}}),Object.defineProperty(t,"listDeviceGroups",{enumerable:!0,get:function(){return p.listDeviceGroups}}),Object.defineProperty(t,"listDeviceGroupElements",{enumerable:!0,get:function(){return p.listDeviceGroupElements}}),Object.defineProperty(t,"addDeviceGroupElement",{enumerable:!0,get:function(){return p.addDeviceGroupElement}}),Object.defineProperty(t,"deleteDeviceGroupElement",{enumerable:!0,get:function(){return p.deleteDeviceGroupElement}}),Object.defineProperty(t,"deleteDeviceGroup",{enumerable:!0,get:function(){return p.deleteDeviceGroup}});var m=n(16);Object.defineProperty(t,"createDeviceType",{enumerable:!0,get:function(){return m.createDeviceType}}),Object.defineProperty(t,"getDeviceType",{enumerable:!0,get:function(){return m.getDeviceType}}),Object.defineProperty(t,"getDeviceTypeProtobuf",{enumerable:!0,get:function(){return m.getDeviceTypeProtobuf}}),Object.defineProperty(t,"updateDeviceType",{enumerable:!0,get:function(){return m.updateDeviceType}}),Object.defineProperty(t,"listDeviceTypes",{enumerable:!0,get:function(){return m.listDeviceTypes}}),Object.defineProperty(t,"deleteDeviceType",{enumerable:!0,get:function(){return m.deleteDeviceType}});var g=n(15);Object.defineProperty(t,"createDeviceCommand",{enumerable:!0,get:function(){return g.createDeviceCommand}}),Object.defineProperty(t,"getDeviceCommand",{enumerable:!0,get:function(){return g.getDeviceCommand}}),Object.defineProperty(t,"listDeviceCommands",{enumerable:!0,get:function(){return g.listDeviceCommands}}),Object.defineProperty(t,"updateDeviceCommand",{enumerable:!0,get:function(){return g.updateDeviceCommand}}),Object.defineProperty(t,"listDeviceCommandsByNamespace",{enumerable:!0,get:function(){return g.listDeviceCommandsByNamespace}}),Object.defineProperty(t,"deleteDeviceCommand",{enumerable:!0,get:function(){return g.deleteDeviceCommand}});var v=n(14);Object.defineProperty(t,"createDeviceStatus",{enumerable:!0,get:function(){return v.createDeviceStatus}}),Object.defineProperty(t,"getDeviceStatus",{enumerable:!0,get:function(){return v.getDeviceStatus}}),Object.defineProperty(t,"listDeviceStatuses",{enumerable:!0,get:function(){return v.listDeviceStatuses}}),Object.defineProperty(t,"updateDeviceStatus",{enumerable:!0,get:function(){return v.updateDeviceStatus}}),Object.defineProperty(t,"deleteDeviceStatus",{enumerable:!0,get:function(){return v.deleteDeviceStatus}});var y=n(13);Object.defineProperty(t,"searchDeviceStates",{enumerable:!0,get:function(){return y.searchDeviceStates}});var A=n(12);Object.defineProperty(t,"getTopology",{enumerable:!0,get:function(){return A.getTopology}}),Object.defineProperty(t,"getGlobalTopology",{enumerable:!0,get:function(){return A.getGlobalTopology}}),Object.defineProperty(t,"getTenantTopology",{enumerable:!0,get:function(){return A.getTenantTopology}}),Object.defineProperty(t,"getMicroserviceTenantRuntimeState",{enumerable:!0,get:function(){return A.getMicroserviceTenantRuntimeState}}),Object.defineProperty(t,"getConfigurationModel",{enumerable:!0,get:function(){return A.getConfigurationModel}}),Object.defineProperty(t,"getGlobalConfiguration",{enumerable:!0,get:function(){return A.getGlobalConfiguration}}),Object.defineProperty(t,"getTenantConfiguration",{enumerable:!0,get:function(){return A.getTenantConfiguration}}),Object.defineProperty(t,"updateGlobalConfiguration",{enumerable:!0,get:function(){return A.updateGlobalConfiguration}}),Object.defineProperty(t,"updateTenantConfiguration",{enumerable:!0,get:function(){return A.updateTenantConfiguration}}),Object.defineProperty(t,"listTenantScriptMetadata",{enumerable:!0,get:function(){return A.listTenantScriptMetadata}}),Object.defineProperty(t,"getTenantScriptMetadata",{enumerable:!0,get:function(){return A.getTenantScriptMetadata}}),Object.defineProperty(t,"createTenantScript",{enumerable:!0,get:function(){return A.createTenantScript}}),Object.defineProperty(t,"getTenantScriptContent",{enumerable:!0,get:function(){return A.getTenantScriptContent}}),Object.defineProperty(t,"updateTenantScript",{enumerable:!0,get:function(){return A.updateTenantScript}}),Object.defineProperty(t,"cloneTenantScript",{enumerable:!0,get:function(){return A.cloneTenantScript}}),Object.defineProperty(t,"activateTenantScript",{enumerable:!0,get:function(){return A.activateTenantScript}});var h=n(11);Object.defineProperty(t,"createSchedule",{enumerable:!0,get:function(){return h.createSchedule}}),Object.defineProperty(t,"getSchedule",{enumerable:!0,get:function(){return h.getSchedule}}),Object.defineProperty(t,"updateSchedule",{enumerable:!0,get:function(){return h.updateSchedule}}),Object.defineProperty(t,"deleteSchedule",{enumerable:!0,get:function(){return h.deleteSchedule}}),Object.defineProperty(t,"listSchedules",{enumerable:!0,get:function(){return h.listSchedules}});var b=n(10);Object.defineProperty(t,"createTenant",{enumerable:!0,get:function(){return b.createTenant}}),Object.defineProperty(t,"getTenant",{enumerable:!0,get:function(){return b.getTenant}}),Object.defineProperty(t,"updateTenant",{enumerable:!0,get:function(){return b.updateTenant}}),Object.defineProperty(t,"listTenants",{enumerable:!0,get:function(){return b.listTenants}}),Object.defineProperty(t,"deleteTenant",{enumerable:!0,get:function(){return b.deleteTenant}}),Object.defineProperty(t,"getTenantTemplates",{enumerable:!0,get:function(){return b.getTenantTemplates}}),Object.defineProperty(t,"getDatasetTemplates",{enumerable:!0,get:function(){return b.getDatasetTemplates}});var T=n(9);Object.defineProperty(t,"createUser",{enumerable:!0,get:function(){return T.createUser}}),Object.defineProperty(t,"updateUser",{enumerable:!0,get:function(){return T.updateUser}}),Object.defineProperty(t,"getUser",{enumerable:!0,get:function(){return T.getUser}}),Object.defineProperty(t,"deleteUser",{enumerable:!0,get:function(){return T.deleteUser}}),Object.defineProperty(t,"listUsers",{enumerable:!0,get:function(){return T.listUsers}}),Object.defineProperty(t,"listUserTenants",{enumerable:!0,get:function(){return T.listUserTenants}}),Object.defineProperty(t,"getAuthoritiesHierarchy",{enumerable:!0,get:function(){return T.getAuthoritiesHierarchy}}),t.createAxiosBasicAuth=function(e,t){var n={};t&&(n.Authorization="Basic "+t);return O.default.create({baseURL:e,headers:n})},t.createAxiosJwt=function(e,t,n,r){var s={};t&&(s.Authorization="Bearer "+t);n&&(s["X-SiteWhere-Tenant-Id"]=n);r&&(s["X-SiteWhere-Tenant-Auth"]=r);return O.default.create({baseURL:e,headers:s})};var P,D=n(8),O=(P=D)&&P.__esModule?P:{default:P}}]);
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('axios')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'axios'], factory) :
+  (factory((global['sitewhere2-rest-api'] = {}),global.axios));
+}(this, (function (exports,axios) { 'use strict';
+
+  axios = axios && axios.hasOwnProperty('default') ? axios['default'] : axios;
+
+  /**
+   * Perform a REST get call.
+   */
+  function restAuthGet(axios$$1, path) {
+    return axios$$1.get(path);
+  }
+
+  /**
+   * Perform a REST post call.
+   */
+  function restAuthPost(axios$$1, path, payload) {
+    return axios$$1.post(path, payload);
+  }
+
+  /**
+   * Perform a REST put call.
+   */
+  function restAuthPut(axios$$1, path, payload) {
+    return axios$$1.put(path, payload);
+  }
+
+  /**
+   * Perform a REST delete call.
+   */
+  function restAuthDelete(axios$$1, path) {
+    return axios$$1.delete(path);
+  }
+
+  /**
+   * Generate a query with a random seed value to prevent caching.
+   */
+  function randomSeedQuery() {
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = crypto.getRandomValues(new Uint8Array(1))[0] % 16 | 0;
+      var v = c === 'x' ? r : r & 0x3 | 0x8;
+      return v.toString(16);
+    });
+    return '?rnd=' + uuid;
+  }
+
+  /**
+   * API calls associated with authentication.
+   */
+
+  /**
+   * Get new JWT.
+   */
+  function getJwt(axios$$1) {
+    return restAuthGet(axios$$1, 'jwt');
+  }
+
+  /**
+   * Create a new customer type.
+   */
+  function createCustomerType(axios$$1, customerType) {
+    return restAuthPost(axios$$1, 'customertypes/', customerType);
+  }
+
+  /**
+   * Get a customer type by unique token.
+   */
+  function getCustomerType(axios$$1, customerTypeToken) {
+    return restAuthGet(axios$$1, 'customertypes/' + customerTypeToken);
+  }
+
+  /**
+   * Update an existing customer type.
+   */
+  function updateCustomerType(axios$$1, customerTypeToken, payload) {
+    return restAuthPut(axios$$1, 'customertypes/' + customerTypeToken, payload);
+  }
+
+  /**
+   * List customer types.
+   */
+  function listCustomerTypes(axios$$1, includeContainedCustomerTypes, paging) {
+    var query = '';
+    query += includeContainedCustomerTypes ? '?includeContainedCustomerTypes=true' : '?includeContainedCustomerTypes=false';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'customertypes' + query);
+  }
+
+  /**
+   * Delete an existing customer type.
+   */
+  function deleteCustomerType(axios$$1, customerTypeToken, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'customertypes/' + customerTypeToken + query);
+  }
+
+  /**
+   * Create a new customer.
+   */
+  function createCustomer(axios$$1, customer) {
+    return restAuthPost(axios$$1, 'customers', customer);
+  }
+
+  /**
+   * Get a customer by unique token.
+   */
+  function getCustomer(axios$$1, customerToken) {
+    return restAuthGet(axios$$1, 'customers/' + customerToken);
+  }
+
+  /**
+   * Update an existing customer.
+   */
+  function updateCustomer(axios$$1, customerToken, payload) {
+    return restAuthPut(axios$$1, 'customers/' + customerToken, payload);
+  }
+
+  /**
+   * List customers.
+   */
+  function listCustomers(axios$$1, options, paging) {
+    var query = '';
+    query += options.rootOnly ? '?rootOnly=true' : '?rootOnly=false';
+    query += options.parentCustomerToken ? '&parentCustomerToken=' + options.parentCustomerToken : '';
+    query += options.customerTypeToken ? '&customerTypeToken=' + options.customerTypeToken : '';
+    query += options.includeCustomerType ? '&includeCustomerType=true' : '';
+    query += options.includeAssignments ? '&includeAssignments=true' : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'customers' + query);
+  }
+
+  /**
+   * Delete an existing customer.
+   */
+  function deleteCustomer(axios$$1, customerToken, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'customers/' + customerToken + query);
+  }
+
+  /**
+   * List assignments for an area.
+   */
+  function listAssignmentsForCustomer(axios$$1, customerToken, options, paging) {
+    var query = randomSeedQuery();
+    query += options.includeDevice ? '&includeDevice=true' : '';
+    query += options.includeCustomer ? '&includeCustomer=true' : '';
+    query += options.includeArea ? '&includeArea=true' : '';
+    query += options.includeAsset ? '&includeAsset=true' : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'customers/' + customerToken + '/assignments' + query);
+  }
+
+  /**
+   * List location events for a customer.
+   */
+  function listLocationsForCustomer(axios$$1, customerToken, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'customers/' + customerToken + '/locations' + query);
+  }
+
+  /**
+   * List measurement events for a customer.
+   */
+  function listMeasurementsForCustomer(axios$$1, customerToken, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'customers/' + customerToken + '/measurements' + query);
+  }
+
+  /**
+   * List alert events for a customer.
+   */
+  function listAlertsForCustomer(axios$$1, customerToken, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'customers/' + customerToken + '/alerts' + query);
+  }
+
+  /**
+   * Create a new area type.
+   */
+  function createAreaType(axios$$1, areaType) {
+    return restAuthPost(axios$$1, 'areatypes/', areaType);
+  }
+
+  /**
+   * Get an area type by unique token.
+   */
+  function getAreaType(axios$$1, areaTypeToken) {
+    return restAuthGet(axios$$1, 'areatypes/' + areaTypeToken);
+  }
+
+  /**
+   * Update an existing area type.
+   */
+  function updateAreaType(axios$$1, areaTypeToken, payload) {
+    return restAuthPut(axios$$1, 'areatypes/' + areaTypeToken, payload);
+  }
+
+  /**
+   * List area types.
+   */
+  function listAreaTypes(axios$$1, includeContainedAreaTypes, paging) {
+    var query = '';
+    query += includeContainedAreaTypes ? '?includeContainedAreaTypes=true' : '?includeContainedAreaTypes=false';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'areatypes' + query);
+  }
+
+  /**
+   * Delete an existing area type.
+   */
+  function deleteAreaType(axios$$1, areaTypeToken, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'areatypes/' + areaTypeToken + query);
+  }
+
+  /**
+   * Create a new area.
+   */
+  function createArea(axios$$1, area) {
+    return restAuthPost(axios$$1, 'areas', area);
+  }
+
+  /**
+   * Get an area by unique token.
+   */
+  function getArea(axios$$1, areaToken) {
+    return restAuthGet(axios$$1, 'areas/' + areaToken);
+  }
+
+  /**
+   * Update an existing area.
+   */
+  function updateArea(axios$$1, areaToken, payload) {
+    return restAuthPut(axios$$1, 'areas/' + areaToken, payload);
+  }
+
+  /**
+   * List areas.
+   */
+  function listAreas(axios$$1, options, paging) {
+    var query = '';
+    query += options.rootOnly ? '?rootOnly=true' : '?rootOnly=false';
+    query += options.parentAreaToken ? '&parentAreaToken=' + options.parentAreaToken : '';
+    query += options.areaTypeToken ? '&areaTypeToken=' + options.areaTypeToken : '';
+    query += options.includeAreaType ? '&includeAreaType=true' : '';
+    query += options.includeAssignments ? '&includeAssignments=true' : '';
+    query += options.includeZones ? '&includeZones=true' : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'areas' + query);
+  }
+
+  /**
+   * Delete an existing area.
+   */
+  function deleteArea(axios$$1, areaToken, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'areas/' + areaToken + query);
+  }
+
+  /**
+   * List assignments for an area.
+   */
+  function listAssignmentsForArea(axios$$1, areaToken, options, paging) {
+    var query = randomSeedQuery();
+    query += options.includeDevice ? '&includeDevice=true' : '';
+    query += options.includeCustomer ? '&includeCustomer=true' : '';
+    query += options.includeArea ? '&includeArea=true' : '';
+    query += options.includeAsset ? '&includeAsset=true' : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'areas/' + areaToken + '/assignments' + query);
+  }
+
+  /**
+   * List location events for an area.
+   */
+  function listLocationsForArea(axios$$1, areaToken, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'areas/' + areaToken + '/locations' + query);
+  }
+
+  /**
+   * List measurement events for an area.
+   */
+  function listMeasurementsForArea(axios$$1, areaToken, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'areas/' + areaToken + '/measurements' + query);
+  }
+
+  /**
+   * List alert events for an area.
+   */
+  function listAlertsForArea(axios$$1, areaToken, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'areas/' + areaToken + '/alerts' + query);
+  }
+
+  /**
+   * Create zone.
+   */
+  function createZone(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/zones', payload);
+  }
+
+  /**
+   * Get zone by unique token.
+   */
+  function getZone(axios$$1, zoneToken) {
+    return restAuthGet(axios$$1, '/zones/' + zoneToken);
+  }
+
+  /**
+   * Update an existing zone.
+   */
+  function updateZone(axios$$1, zoneToken, payload) {
+    return restAuthPut(axios$$1, '/zones/' + zoneToken, payload);
+  }
+
+  /**
+   * List zones based on criteria.
+   */
+  function listZones(axios$$1, options, paging) {
+    var query = '';
+    query += options.areaToken ? '?areaToken=' + options.areaToken : '?all=true';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'zones' + query);
+  }
+
+  /**
+   * Delete zone.
+   */
+  function deleteZone(axios$$1, zoneToken) {
+    return restAuthDelete(axios$$1, 'zones/' + zoneToken + '?force=true');
+  }
+
+  /**
+   * API calls associated with SiteWhere assets.
+   */
+
+  /**
+   * Create an asset.
+   */
+  function createAsset(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/assets', payload);
+  }
+
+  /**
+   * Get an asset by token.
+   */
+  function getAsset(axios$$1, token) {
+    return restAuthGet(axios$$1, 'assets/' + encodeURIComponent(token));
+  }
+
+  /**
+   * Update an existing asset.
+   */
+  function updateAsset(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, 'assets/' + token, payload);
+  }
+
+  /**
+   * List assets.
+   */
+  function listAssets(axios$$1, options, paging) {
+    var query = '';
+    query += options.includeAssetType ? '?includeAssetType=true' : '?includeAssetType=false';
+    query += options.assetTypeToken ? '&assetTypeToken=' + options.assetTypeToken : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'assets' + query);
+  }
+
+  /**
+   * Delete an existing asset type.
+   */
+  function deleteAsset(axios$$1, token, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'assets/' + token + query);
+  }
+
+  /**
+   * Create a new asset type.
+   */
+  function createAssetType(axios$$1, assetType) {
+    return restAuthPost(axios$$1, 'assettypes/', assetType);
+  }
+
+  /**
+   * Get an asset type by unique token.
+   */
+  function getAssetType(axios$$1, assetTypeToken) {
+    return restAuthGet(axios$$1, 'assettypes/' + assetTypeToken);
+  }
+
+  /**
+   * Update an existing asset type.
+   */
+  function updateAssetType(axios$$1, assetTypeToken, payload) {
+    return restAuthPut(axios$$1, 'assettypes/' + assetTypeToken, payload);
+  }
+
+  /**
+   * List asset types.
+   */
+  function listAssetTypes(axios$$1, options, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'assettypes' + query);
+  }
+
+  /**
+   * Delete an existing asset type.
+   */
+  function deleteAssetType(axios$$1, assetTypeToken, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'assettypes/' + assetTypeToken + query);
+  }
+
+  /**
+   * API calls associated with SiteWhere device assignments.
+   */
+
+  /**
+   * Create a device assignment.
+   */
+  function createDeviceAssignment(axios$$1, payload) {
+    return restAuthPost(axios$$1, 'assignments/', payload);
+  }
+
+  /**
+   * Get an assignment by unique token.
+   */
+  function getDeviceAssignment(axios$$1, token) {
+    return restAuthGet(axios$$1, 'assignments/' + token);
+  }
+
+  /**
+   * List assignments that match criteria.
+   */
+  function listDeviceAssignments(axios$$1, options, paging) {
+    var query = '';
+    query += options.includeDevice ? '?includeDevice=true' : '?includeDevice=false';
+    query += options.includeCustomer ? '&includeCustomer=true' : '';
+    query += options.includeArea ? '&includeArea=true' : '';
+    query += options.includeAsset ? '&includeAsset=true' : '';
+    query += options.deviceToken ? '&deviceToken=' + options.deviceToken : '';
+    query += options.customerToken ? '&customerToken=' + options.customerToken : '';
+    query += options.areaToken ? '&areaToken=' + options.areaToken : '';
+    query += options.assetToken ? '&assetToken=' + options.assetToken : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'assignments' + query);
+  }
+
+  /**
+   * Release an active assignment.
+   */
+  function releaseAssignment(axios$$1, token) {
+    return restAuthPost(axios$$1, '/assignments/' + token + '/end', null);
+  }
+
+  /**
+   * Mark an assignment as missing.
+   */
+  function missingAssignment(axios$$1, token) {
+    return restAuthPost(axios$$1, '/assignments/' + token + '/missing', null);
+  }
+
+  /**
+   * Delete a device assignment.
+   */
+  function deleteDeviceAssignment(axios$$1, token, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'assignments/' + token + query);
+  }
+
+  /**
+   * Create measurements event for an assignment.
+   */
+  function createMeasurementsForAssignment(axios$$1, token, payload) {
+    return restAuthPost(axios$$1, 'assignments/' + token + '/measurements', payload);
+  }
+
+  /**
+   * List measurement events for an assignment.
+   */
+  function listMeasurementsForAssignment(axios$$1, token, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'assignments/' + token + '/measurements' + query);
+  }
+
+  /**
+   * List measurement events for an assignment as a chart series.
+   */
+  function listMeasurementsForAssignmentAsChartSeries(axios$$1, token, mxIds, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    if (mxIds) {
+      for (var i = 0; i < mxIds.length; i++) {
+        query += '&measurementIds=' + mxIds[i];
+      }
+    }
+    return restAuthGet(axios$$1, 'assignments/' + token + '/measurements/series' + query);
+  }
+
+  /**
+   * Create location event for an assignment.
+   */
+  function createLocationForAssignment(axios$$1, token, payload) {
+    return restAuthPost(axios$$1, 'assignments/' + token + '/locations', payload);
+  }
+
+  /**
+   * List location events for an assignment.
+   */
+  function listLocationsForAssignment(axios$$1, token, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'assignments/' + token + '/locations' + query);
+  }
+
+  /**
+   * Create alert event for an assignment.
+   */
+  function createAlertForAssignment(axios$$1, token, payload) {
+    return restAuthPost(axios$$1, 'assignments/' + token + '/alerts', payload);
+  }
+
+  /**
+   * List alert events for an assignment.
+   */
+  function listAlertsForAssignment(axios$$1, token, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'assignments/' + token + '/alerts' + query);
+  }
+
+  /**
+   * Create command invocation for an assignment.
+   */
+  function createCommandInvocationForAssignment(axios$$1, token, payload) {
+    return restAuthPost(axios$$1, 'assignments/' + token + '/invocations', payload);
+  }
+
+  /**
+   * Schedule command invocation for an assignment.
+   */
+  function scheduleCommandInvocation(axios$$1, token, schedule, payload) {
+    return restAuthPost(axios$$1, 'assignments/' + token + '/invocations/schedules/' + schedule, payload);
+  }
+
+  /**
+   * List command invocation events for an assignment.
+   */
+  function listCommandInvocationsForAssignment(axios$$1, token, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'assignments/' + token + '/invocations' + query);
+  }
+
+  /**
+   * List command invocation events for an assignment.
+   */
+  function listCommandResponsesForAssignment(axios$$1, token, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'assignments/' + token + '/responses' + query);
+  }
+
+  /**
+   * API calls associated with SiteWhere batch operations.
+   */
+
+  /**
+   * Get an assignment by unique token.
+   */
+  function getBatchOperation(axios$$1, token) {
+    return restAuthGet(axios$$1, 'batch/' + token);
+  }
+
+  /**
+   * List batch operations.
+   */
+  function listBatchOperations(axios$$1, token, includeDeleted, paging) {
+    var query = '';
+    query += includeDeleted ? '?includeDeleted=true' : '?includeDeleted=false';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'batch/' + query);
+  }
+
+  /**
+   * List batch operation elements.
+   */
+  function listBatchOperationElements(axios$$1, token, options, paging) {
+    var query = '';
+    query += options.includeDevice ? '?includeDevice=true' : '?includeDevice=false';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'batch/' + token + '/elements' + query);
+  }
+
+  /**
+   * Create a batch command invocation.
+   */
+  function createBatchCommandInvocation(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/batch/command', payload);
+  }
+
+  /**
+   * Create a batch command invocation baesd on criteria.
+   */
+  function createBatchCommandByCriteria(axios$$1, options, payload) {
+    var query = '';
+    query += options.scheduleToken ? '?scheduleToken=' + options.scheduleToken : '';
+    return restAuthPost(axios$$1, '/batch/command/criteria' + query, payload);
+  }
+
+  /**
+   * API calls associated with SiteWhere device assignments.
+   */
+
+  /**
+   * Create a device.
+   */
+  function createDevice(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/devices', payload);
+  }
+
+  /**
+   * Update an existing device.
+   */
+  function updateDevice(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, '/devices/' + token, payload);
+  }
+
+  /**
+   * List devices.
+   */
+  function listDevices(axios$$1, options, paging) {
+    var query = '';
+    query += options.includeDeleted ? '?includeDeleted=true' : '?includeDeleted=false';
+    query += options.excludeAssigned ? '&excludeAssigned=true' : '';
+    query += options.includeDeviceType ? '&includeDeviceType=true' : '';
+    query += options.includeAssignment ? '&includeAssignment=true' : ' ';
+    query += options.area ? '&area=' + options.area : '';
+    query += options.deviceType ? '&deviceType=' + options.deviceType : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'devices' + query);
+  }
+
+  /**
+   * Get device by token.
+   */
+  function getDevice(axios$$1, token, options) {
+    var query = '';
+    query += options.includeDeviceType ? '?includeDeviceType=true' : '?includeDeviceType=false';
+    query += options.includeAssignment ? '&includeAssignment=true' : '';
+    query += options.includeAsset ? '&includeAsset=true' : '';
+    query += options.includeNested ? '&includeNested=true' : '';
+    return restAuthGet(axios$$1, '/devices/' + token + query);
+  }
+
+  /**
+   * Delete device.
+   */
+  function deleteDevice(axios$$1, token, force) {
+    var query = '';
+    query += force ? '?force=true' : '?force=false';
+    return restAuthDelete(axios$$1, 'devices/' + token + query);
+  }
+
+  /**
+   * List assignment history for a device.
+   */
+  function listDeviceAssignmentHistory(axios$$1, token, options, paging) {
+    var query = randomSeedQuery();
+    query += options.includeDevice ? '&includeDevice=true' : '';
+    query += options.includeCustomer ? '&includeCustomer=true' : '';
+    query += options.includeArea ? '&includeArea=true' : '';
+    query += options.includeAsset ? '&includeAsset=true' : '';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'devices/' + token + '/assignments' + query);
+  }
+
+  /**
+   * API calls associated with SiteWhere device groups.
+   */
+
+  /**
+   * Create a device group.
+   */
+  function createDeviceGroup(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/devicegroups', payload);
+  }
+
+  /**
+   * Update an existing device group.
+   */
+  function updateDeviceGroup(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, '/devicegroups/' + token, payload);
+  }
+
+  /**
+   * Get device group by token.
+   */
+  function getDeviceGroup(axios$$1, token) {
+    return restAuthGet(axios$$1, '/devicegroups/' + token);
+  }
+
+  /**
+   * List sites.
+   */
+  function listDeviceGroups(axios$$1, role, includeDeleted, paging) {
+    var query = '';
+    query += includeDeleted ? '?includeDeleted=true' : '?includeDeleted=false';
+    if (role) {
+      query += '&role=' + role;
+    }
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'devicegroups' + query);
+  }
+
+  /**
+   * List device group elements.
+   */
+  function listDeviceGroupElements(axios$$1, token, includeDetails, paging) {
+    var query = '';
+    query += includeDetails ? '?includeDetails=true' : '?includeDetails=false';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'devicegroups/' + token + '/elements' + query);
+  }
+
+  /**
+   * Add a device group element.
+   */
+  function addDeviceGroupElement(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, 'devicegroups/' + token + '/elements', payload);
+  }
+
+  /**
+   * Delete a device group element.
+   */
+  function deleteDeviceGroupElement(axios$$1, token, elementId) {
+    return restAuthDelete(axios$$1, 'devicegroups/' + token + '/elements/' + elementId);
+  }
+
+  /**
+   * Delete device group.
+   */
+  function deleteDeviceGroup(axios$$1, token, force) {
+    var query = '';
+    query += force ? '?force=true' : '?force=false';
+    return restAuthDelete(axios$$1, 'devicegroups/' + token + query);
+  }
+
+  /**
+   * API calls associated with SiteWhere device specifications.
+   */
+
+  /**
+   * Create a device type.
+   */
+  function createDeviceType(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/devicetypes', payload);
+  }
+
+  /**
+   * Get device type by unique token.
+   */
+  function getDeviceType(axios$$1, token) {
+    return restAuthGet(axios$$1, '/devicetypes/' + token);
+  }
+
+  /**
+   * Get device type protocol buffer definition.
+   */
+  function getDeviceTypeProtobuf(axios$$1, token) {
+    return restAuthGet(axios$$1, '/devicetypes/' + token + '/proto');
+  }
+
+  /**
+   * Update an existing device type.
+   */
+  function updateDeviceType(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, '/devicetypes/' + token, payload);
+  }
+
+  /**
+   * List device types.
+   */
+  function listDeviceTypes(axios$$1, includeDeleted, includeAsset, paging) {
+    var query = '';
+    query += includeDeleted ? '?includeDeleted=true' : '?includeDeleted=false';
+    query += includeAsset ? '&includeAsset=true' : '&includeAsset=false';
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'devicetypes' + query);
+  }
+
+  /**
+   * Delete device type.
+   */
+  function deleteDeviceType(axios$$1, token, force) {
+    var query = '';
+    query += force ? '?force=true' : '?force=false';
+    return restAuthDelete(axios$$1, 'devicetypes/' + token + query);
+  }
+
+  /**
+   * API calls associated with SiteWhere device specifications.
+   */
+
+  /**
+   * Create a device command.
+   */
+  function createDeviceCommand(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/commands', payload);
+  }
+
+  /**
+   * Get a device command by token.
+   */
+  function getDeviceCommand(axios$$1, token) {
+    return restAuthGet(axios$$1, '/commands/' + token);
+  }
+
+  /**
+   * Update an existing device command.
+   */
+  function updateDeviceCommand(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, '/commands/' + token, payload);
+  }
+
+  /**
+   * List device commands that meet criteria.
+   */
+  function listDeviceCommands(axios$$1, options) {
+    var query = '';
+    query += options.deviceTypeToken ? '?deviceTypeToken=' + options.deviceTypeToken : '';
+    return restAuthGet(axios$$1, '/commands' + query);
+  }
+
+  /**
+   * List device specification commands by namespace.
+   */
+  function listDeviceCommandsByNamespace(axios$$1, options) {
+    var query = '';
+    query += options.deviceTypeToken ? '?deviceTypeToken=' + options.deviceTypeToken : '';
+    return restAuthGet(axios$$1, '/commands/namespaces' + query);
+  }
+
+  /**
+   * Delete device command.
+   */
+  function deleteDeviceCommand(axios$$1, token, force) {
+    var query = '';
+    query += force ? '?force=true' : '?force=false';
+    return restAuthDelete(axios$$1, 'commands/' + token + query);
+  }
+
+  /**
+   * API calls associated with SiteWhere device specifications.
+   */
+
+  /**
+   * Create a device status.
+   */
+  function createDeviceStatus(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/statuses', payload);
+  }
+
+  /**
+   * Get a device status by token.
+   */
+  function getDeviceStatus(axios$$1, token) {
+    return restAuthGet(axios$$1, '/statuses/' + token);
+  }
+
+  /**
+   * Update an existing device status.
+   */
+  function updateDeviceStatus(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, '/statuses/' + token, payload);
+  }
+
+  /**
+   * List all device statuses that meet criteria.
+   */
+  function listDeviceStatuses(axios$$1, options) {
+    var query = '';
+    query += options.deviceTypeToken ? '?deviceTypeToken=' + options.deviceTypeToken : '';
+    return restAuthGet(axios$$1, '/statuses' + query);
+  }
+
+  /**
+   * Delete device status.
+   */
+  function deleteDeviceStatus(axios$$1, token) {
+    return restAuthDelete(axios$$1, '/statuses/' + token);
+  }
+
+  /**
+   * List device state entries matching the given criteria.
+   */
+  function searchDeviceStates(axios$$1, criteria, options) {
+    var query = randomSeedQuery();
+    query += options.includeDevice ? '&includeDevice=true' : '';
+    query += options.includeDeviceType ? '&includeDeviceType=true' : '';
+    query += options.includeDeviceAssignment ? '&includeDeviceAssignment=true' : '';
+    query += options.includeCustomer ? '&includeCustomer=true' : '';
+    query += options.includeArea ? '&includeArea=true' : '';
+    query += options.includeAsset ? '&includeAsset=true' : '';
+    query += options.includeEventDetails ? '&includeEventDetails=true' : '';
+    return restAuthPost(axios$$1, 'devicestates/search' + query, criteria);
+  }
+
+  /**
+   * API calls associated with SiteWhere instance.
+   */
+
+  /**
+   * Get list of all microservices in current topology.
+   */
+  function getTopology(axios$$1) {
+    return restAuthGet(axios$$1, 'instance/topology');
+  }
+
+  /**
+   * Get list of global microservices in current topology.
+   */
+  function getGlobalTopology(axios$$1) {
+    return restAuthGet(axios$$1, 'instance/topology/global');
+  }
+
+  /**
+   * Get list of tenant microservices in current topology.
+   */
+  function getTenantTopology(axios$$1) {
+    return restAuthGet(axios$$1, 'instance/topology/tenant');
+  }
+
+  /**
+   * Get the state of all tenant engines (across all microservice instances)
+   * for a given tenant id.
+   */
+  function getMicroserviceTenantRuntimeState(axios$$1, identifier, tenantToken) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/state');
+  }
+
+  /**
+   * Get configuration model for a given microservice identifier.
+   */
+  function getConfigurationModel(axios$$1, identifier) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/configuration/model');
+  }
+
+  /**
+   * Get global microservice configuration based on identifier.
+   */
+  function getGlobalConfiguration(axios$$1, identifier) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/configuration');
+  }
+
+  /**
+   * Update global microservice configuration based on identifier.
+   */
+  function updateGlobalConfiguration(axios$$1, identifier, config) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/configuration', config);
+  }
+
+  /**
+   * Get tenant microservice configuration based on identifier.
+   */
+  function getTenantConfiguration(axios$$1, tenantToken, identifier) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/configuration');
+  }
+
+  /**
+   * Update tenant microservice configuration based on identifier.
+   */
+  function updateTenantConfiguration(axios$$1, tenantToken, identifier, config) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/configuration', config);
+  }
+
+  /**
+   * Get a list of script templates for a given microservice.
+   */
+  function listScriptTemplates(axios$$1, identifier) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/scripting/templates');
+  }
+
+  /**
+   * Get content for a script template for a given microservice.
+   */
+  function getScriptTemplateContent(axios$$1, identifier, templateId) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/scripting/templates/' + templateId);
+  }
+
+  /**
+   * Get a list of global script metadata for a microservice.
+   */
+  function listGlobalScriptMetadata(axios$$1, identifier) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/scripting/scripts');
+  }
+
+  /**
+   * Get metadata for a tenant script based on unique script id.
+   */
+  function getGlobalScriptMetadata(axios$$1, identifier, scriptId) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/scripting/scripts/' + scriptId);
+  }
+
+  /**
+   * Create a new global script for a microservice.
+   */
+  function createGlobalScript(axios$$1, identifier, request) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/scripting/scripts/' + identifier, request);
+  }
+
+  /**
+   * Get global script content based on unique script id and version identifier.
+   */
+  function getGlobalScriptContent(axios$$1, identifier, scriptId, versionId) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/scripting/tenants/' + tenantId + '/scripts/' + identifier + '/' + scriptId + '/versions/' + versionId + '/content');
+  }
+
+  /**
+   * Update an existing global script.
+   */
+  function updateGlobalScript(axios$$1, identifier, scriptId, versionId, request) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + 'scripting/scripts/' + identifier + '/' + scriptId + '/versions/' + versionId, request);
+  }
+
+  /**
+   * Clone an existing global script version to create a new version.
+   */
+  function cloneGlobalScript(axios$$1, identifier, scriptId, versionId, request) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/scripting/scripts/' + identifier + '/' + scriptId + '/versions/' + versionId + '/clone', request);
+  }
+
+  /**
+   * Activate a global script.
+   */
+  function activateGlobalScript(axios$$1, identifier, scriptId, versionId) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/scripting/scripts/' + identifier + '/' + scriptId + '/versions/' + versionId + '/activate', null);
+  }
+
+  /**
+   * Get a list of script metadata for the given tenant.
+   */
+  function listTenantScriptMetadata(axios$$1, identifier, tenantToken) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/scripting/scripts');
+  }
+
+  /**
+   * Get metadata for a tenant script based on unique script id.
+   */
+  function getTenantScriptMetadata(axios$$1, identifier, tenantToken, scriptId) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/scripting/scripts/' + scriptId);
+  }
+
+  /**
+   * Create a new tenant script.
+   */
+  function createTenantScript(axios$$1, identifier, tenantToken, request) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/scripting/scripts', request);
+  }
+
+  /**
+   * Get tenant script content based on unique script id and version identifier.
+   */
+  function getTenantScriptContent(axios$$1, identifier, tenantToken, scriptId, versionId) {
+    return restAuthGet(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/scripting/scripts/' + scriptId + '/versions/' + versionId + '/content');
+  }
+
+  /**
+   * Update an existing tenant script.
+   */
+  function updateTenantScript(axios$$1, identifier, tenantToken, scriptId, versionId, request) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/scripting/scripts/' + scriptId + '/versions/' + versionId, request);
+  }
+
+  /**
+   * Clone an existing tenant script version to create a new version.
+   */
+  function cloneTenantScript(axios$$1, identifier, tenantToken, scriptId, versionId, request) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/scripting/scripts/' + scriptId + '/versions/' + versionId + '/clone', request);
+  }
+
+  /**
+   * Activate a tenant script.
+   */
+  function activateTenantScript(axios$$1, identifier, tenantToken, scriptId, versionId) {
+    return restAuthPost(axios$$1, 'instance/microservice/' + identifier + '/tenants/' + tenantToken + '/scripting/scripts/' + scriptId + '/versions/' + versionId + '/activate', null);
+  }
+
+  /**
+   * API calls associated with SiteWhere schedules.
+   */
+
+  /**
+   * Create a new site.
+   */
+  function createSchedule(axios$$1, payload) {
+    return restAuthPost(axios$$1, 'schedules', payload);
+  }
+
+  /**
+   * Get a schedule by unique token.
+   */
+  function getSchedule(axios$$1, token) {
+    return restAuthGet(axios$$1, 'schedules/' + token);
+  }
+
+  /**
+   * Update an existing schedule.
+   */
+  function updateSchedule(axios$$1, token, payload) {
+    return restAuthPut(axios$$1, 'schedules/' + token, payload);
+  }
+
+  /**
+   * Delete an existing schedule.
+   */
+  function deleteSchedule(axios$$1, token, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'schedules/' + token + query);
+  }
+
+  /**
+   * List schedules.
+   */
+  function listSchedules(axios$$1, options, paging) {
+    var query = '';
+    if (paging) {
+      query += '?' + paging;
+    }
+    return restAuthGet(axios$$1, 'schedules' + query);
+  }
+
+  /**
+   * API calls associated with SiteWhere tenants.
+   */
+
+  /**
+   * Create a tenant.
+   */
+  function createTenant(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/tenants', payload);
+  }
+
+  /**
+   * Get a tenant by tenant id.
+   */
+  function getTenant(axios$$1, tenantToken) {
+    var query = '';
+    return restAuthGet(axios$$1, 'tenants/' + tenantToken + query);
+  }
+
+  /**
+   * Update an existing tenant.
+   */
+  function updateTenant(axios$$1, id, payload) {
+    return restAuthPut(axios$$1, 'tenants/' + id, payload);
+  }
+
+  /**
+   * List tenants.
+   */
+  function listTenants(axios$$1, textSearch, authUserId, includeRuntimeInfo, paging) {
+    var query = '';
+    query += includeRuntimeInfo ? '?includeRuntimeInfo=true' : '?includeRuntimeInfo=false';
+    if (textSearch) {
+      query += '&textSearch=' + textSearch;
+    }
+    if (authUserId) {
+      query += '&authUserId=' + authUserId;
+    }
+    if (paging) {
+      query += '&' + paging;
+    }
+    return restAuthGet(axios$$1, 'tenants' + query);
+  }
+
+  /**
+   * Delete tenant.
+   */
+  function deleteTenant(axios$$1, tenantId, force) {
+    var query = '';
+    query += force ? '?force=true' : '?force=false';
+    return restAuthDelete(axios$$1, 'tenants/' + tenantId + query);
+  }
+
+  /**
+   * Get list of available tenant templates.
+   */
+  function getTenantTemplates(axios$$1) {
+    return restAuthGet(axios$$1, 'tenants/templates');
+  }
+
+  /**
+   * Get list of available dataset templates.
+   */
+  function getDatasetTemplates(axios$$1) {
+    return restAuthGet(axios$$1, 'tenants/datasets');
+  }
+
+  /**
+   * API calls associated with SiteWhere users.
+   */
+
+  /**
+   * Create a user.
+   */
+  function createUser(axios$$1, payload) {
+    return restAuthPost(axios$$1, '/users', payload);
+  }
+
+  /**
+   * Update an existing user.
+   */
+  function updateUser(axios$$1, username, payload) {
+    return restAuthPut(axios$$1, '/users/' + username, payload);
+  }
+
+  /**
+   * Get a user by username.
+   */
+  function getUser(axios$$1, username) {
+    return restAuthGet(axios$$1, 'users/' + username);
+  }
+
+  /**
+   * Delete an existing user.
+   */
+  function deleteUser(axios$$1, username, force) {
+    var query = '';
+    if (force) {
+      query += '?force=true';
+    }
+    return restAuthDelete(axios$$1, 'users/' + username + query);
+  }
+
+  /**
+   * List users.
+   */
+  function listUsers(axios$$1, includeDeleted, count) {
+    var query = '';
+    query += includeDeleted ? '?includeDeleted=true' : '?includeDeleted=false';
+    if (count) {
+      query += '&count=' + count;
+    }
+    return restAuthGet(axios$$1, 'users' + query);
+  }
+
+  /**
+   * List authorized tenants for a user.
+   */
+  function listUserTenants(axios$$1, username, includeRuntimeInfo) {
+    var query = '';
+    if (includeRuntimeInfo) {
+      query += '?includeRuntimeInfo=true';
+    }
+    return restAuthGet(axios$$1, 'users/' + username + '/tenants' + query);
+  }
+
+  /**
+   * Get authorities hierarchy.
+   */
+  function getAuthoritiesHierarchy(axios$$1) {
+    return restAuthGet(axios$$1, 'authorities/hierarchy');
+  }
+
+  /**
+   * Create call that uses basic authentication.
+   */
+  function createAxiosBasicAuth(baseUrl, authToken) {
+    var headers = {};
+    if (authToken) {
+      headers['Authorization'] = 'Basic ' + authToken;
+    }
+    return axios.create({
+      baseURL: baseUrl,
+      headers: headers
+    });
+  }
+
+  /**
+   * Create call that uses JWT for authentication.
+   */
+  function createAxiosJwt(baseUrl, jwt, tenantId, tenantAuth) {
+    var headers = {};
+    if (jwt) {
+      headers['Authorization'] = 'Bearer ' + jwt;
+    }
+    if (tenantId) {
+      headers['X-SiteWhere-Tenant-Id'] = tenantId;
+    }
+    if (tenantAuth) {
+      headers['X-SiteWhere-Tenant-Auth'] = tenantAuth;
+    }
+    return axios.create({
+      baseURL: baseUrl,
+      headers: headers
+    });
+  }
+
+  exports.createAxiosBasicAuth = createAxiosBasicAuth;
+  exports.createAxiosJwt = createAxiosJwt;
+  exports.getJwt = getJwt;
+  exports.createCustomerType = createCustomerType;
+  exports.getCustomerType = getCustomerType;
+  exports.updateCustomerType = updateCustomerType;
+  exports.listCustomerTypes = listCustomerTypes;
+  exports.deleteCustomerType = deleteCustomerType;
+  exports.createCustomer = createCustomer;
+  exports.getCustomer = getCustomer;
+  exports.updateCustomer = updateCustomer;
+  exports.listCustomers = listCustomers;
+  exports.deleteCustomer = deleteCustomer;
+  exports.listAssignmentsForCustomer = listAssignmentsForCustomer;
+  exports.listLocationsForCustomer = listLocationsForCustomer;
+  exports.listMeasurementsForCustomer = listMeasurementsForCustomer;
+  exports.listAlertsForCustomer = listAlertsForCustomer;
+  exports.createAreaType = createAreaType;
+  exports.getAreaType = getAreaType;
+  exports.updateAreaType = updateAreaType;
+  exports.listAreaTypes = listAreaTypes;
+  exports.deleteAreaType = deleteAreaType;
+  exports.createArea = createArea;
+  exports.getArea = getArea;
+  exports.updateArea = updateArea;
+  exports.listAreas = listAreas;
+  exports.deleteArea = deleteArea;
+  exports.listAssignmentsForArea = listAssignmentsForArea;
+  exports.listLocationsForArea = listLocationsForArea;
+  exports.listMeasurementsForArea = listMeasurementsForArea;
+  exports.listAlertsForArea = listAlertsForArea;
+  exports.createZone = createZone;
+  exports.getZone = getZone;
+  exports.updateZone = updateZone;
+  exports.listZones = listZones;
+  exports.deleteZone = deleteZone;
+  exports.createAsset = createAsset;
+  exports.getAsset = getAsset;
+  exports.updateAsset = updateAsset;
+  exports.listAssets = listAssets;
+  exports.deleteAsset = deleteAsset;
+  exports.createAssetType = createAssetType;
+  exports.getAssetType = getAssetType;
+  exports.updateAssetType = updateAssetType;
+  exports.listAssetTypes = listAssetTypes;
+  exports.deleteAssetType = deleteAssetType;
+  exports.createDeviceAssignment = createDeviceAssignment;
+  exports.getDeviceAssignment = getDeviceAssignment;
+  exports.listDeviceAssignments = listDeviceAssignments;
+  exports.releaseAssignment = releaseAssignment;
+  exports.missingAssignment = missingAssignment;
+  exports.deleteDeviceAssignment = deleteDeviceAssignment;
+  exports.createMeasurementsForAssignment = createMeasurementsForAssignment;
+  exports.listMeasurementsForAssignment = listMeasurementsForAssignment;
+  exports.listMeasurementsForAssignmentAsChartSeries = listMeasurementsForAssignmentAsChartSeries;
+  exports.createLocationForAssignment = createLocationForAssignment;
+  exports.listLocationsForAssignment = listLocationsForAssignment;
+  exports.createAlertForAssignment = createAlertForAssignment;
+  exports.listAlertsForAssignment = listAlertsForAssignment;
+  exports.createCommandInvocationForAssignment = createCommandInvocationForAssignment;
+  exports.scheduleCommandInvocation = scheduleCommandInvocation;
+  exports.listCommandInvocationsForAssignment = listCommandInvocationsForAssignment;
+  exports.listCommandResponsesForAssignment = listCommandResponsesForAssignment;
+  exports.getBatchOperation = getBatchOperation;
+  exports.listBatchOperations = listBatchOperations;
+  exports.listBatchOperationElements = listBatchOperationElements;
+  exports.createBatchCommandInvocation = createBatchCommandInvocation;
+  exports.createBatchCommandByCriteria = createBatchCommandByCriteria;
+  exports.createDevice = createDevice;
+  exports.listDevices = listDevices;
+  exports.getDevice = getDevice;
+  exports.updateDevice = updateDevice;
+  exports.deleteDevice = deleteDevice;
+  exports.listDeviceAssignmentHistory = listDeviceAssignmentHistory;
+  exports.createDeviceGroup = createDeviceGroup;
+  exports.updateDeviceGroup = updateDeviceGroup;
+  exports.getDeviceGroup = getDeviceGroup;
+  exports.listDeviceGroups = listDeviceGroups;
+  exports.listDeviceGroupElements = listDeviceGroupElements;
+  exports.addDeviceGroupElement = addDeviceGroupElement;
+  exports.deleteDeviceGroupElement = deleteDeviceGroupElement;
+  exports.deleteDeviceGroup = deleteDeviceGroup;
+  exports.createDeviceType = createDeviceType;
+  exports.getDeviceType = getDeviceType;
+  exports.getDeviceTypeProtobuf = getDeviceTypeProtobuf;
+  exports.updateDeviceType = updateDeviceType;
+  exports.listDeviceTypes = listDeviceTypes;
+  exports.deleteDeviceType = deleteDeviceType;
+  exports.createDeviceCommand = createDeviceCommand;
+  exports.getDeviceCommand = getDeviceCommand;
+  exports.listDeviceCommands = listDeviceCommands;
+  exports.updateDeviceCommand = updateDeviceCommand;
+  exports.listDeviceCommandsByNamespace = listDeviceCommandsByNamespace;
+  exports.deleteDeviceCommand = deleteDeviceCommand;
+  exports.createDeviceStatus = createDeviceStatus;
+  exports.getDeviceStatus = getDeviceStatus;
+  exports.listDeviceStatuses = listDeviceStatuses;
+  exports.updateDeviceStatus = updateDeviceStatus;
+  exports.deleteDeviceStatus = deleteDeviceStatus;
+  exports.searchDeviceStates = searchDeviceStates;
+  exports.getTopology = getTopology;
+  exports.getGlobalTopology = getGlobalTopology;
+  exports.getTenantTopology = getTenantTopology;
+  exports.getMicroserviceTenantRuntimeState = getMicroserviceTenantRuntimeState;
+  exports.getConfigurationModel = getConfigurationModel;
+  exports.getGlobalConfiguration = getGlobalConfiguration;
+  exports.getTenantConfiguration = getTenantConfiguration;
+  exports.updateGlobalConfiguration = updateGlobalConfiguration;
+  exports.updateTenantConfiguration = updateTenantConfiguration;
+  exports.listScriptTemplates = listScriptTemplates;
+  exports.getScriptTemplateContent = getScriptTemplateContent;
+  exports.listGlobalScriptMetadata = listGlobalScriptMetadata;
+  exports.getGlobalScriptMetadata = getGlobalScriptMetadata;
+  exports.createGlobalScript = createGlobalScript;
+  exports.getGlobalScriptContent = getGlobalScriptContent;
+  exports.updateGlobalScript = updateGlobalScript;
+  exports.cloneGlobalScript = cloneGlobalScript;
+  exports.activateGlobalScript = activateGlobalScript;
+  exports.listTenantScriptMetadata = listTenantScriptMetadata;
+  exports.getTenantScriptMetadata = getTenantScriptMetadata;
+  exports.createTenantScript = createTenantScript;
+  exports.getTenantScriptContent = getTenantScriptContent;
+  exports.updateTenantScript = updateTenantScript;
+  exports.cloneTenantScript = cloneTenantScript;
+  exports.activateTenantScript = activateTenantScript;
+  exports.createSchedule = createSchedule;
+  exports.getSchedule = getSchedule;
+  exports.updateSchedule = updateSchedule;
+  exports.deleteSchedule = deleteSchedule;
+  exports.listSchedules = listSchedules;
+  exports.createTenant = createTenant;
+  exports.getTenant = getTenant;
+  exports.updateTenant = updateTenant;
+  exports.listTenants = listTenants;
+  exports.deleteTenant = deleteTenant;
+  exports.getTenantTemplates = getTenantTemplates;
+  exports.getDatasetTemplates = getDatasetTemplates;
+  exports.createUser = createUser;
+  exports.updateUser = updateUser;
+  exports.getUser = getUser;
+  exports.deleteUser = deleteUser;
+  exports.listUsers = listUsers;
+  exports.listUserTenants = listUserTenants;
+  exports.getAuthoritiesHierarchy = getAuthoritiesHierarchy;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
