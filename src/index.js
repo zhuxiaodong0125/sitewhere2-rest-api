@@ -90,7 +90,7 @@ export {
   listBulkMeasurementsForAssignmentsAsChartSeries,
   listBulkResponsesForAssignments,
   listBulkStateChangesForAssignments
-} from "./sitewhere-device-assignments-api";
+} from './sitewhere-device-assignments-api'
 
 export {
   getBatchOperation,
