@@ -169,3 +169,271 @@ export function listCommandResponsesForAssignment (axios, token, paging) {
   }
   return restAuthGet(axios, 'assignments/' + token + '/responses' + query)
 }
+
+/**
+ * List alert events for device assignment.
+ * @param {*} axios 
+ * @param {*} bulk 
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} paging 
+ */
+export function listBulkAlertsForAssignments(axios, bulk, startDate, endDate, paging) {
+  let query = ''
+  let firstParam = true
+
+  if (paging || endDate || startDate) {
+    query += '?'
+  }
+  if (startDate) {
+    query += '&startDate=' + startDate
+    firstParam = false
+  }
+  if (endDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'endDate=' + endDate
+    firstParam = false
+  }
+  if (paging) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += paging
+  }
+  return restAuthPost(axios, '/assignments/bulk/alerts' + query, bulk)
+}
+
+/**
+ * List command invocation events for assignment.
+ * @param {*} axios 
+ * @param {*} bulk
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} paging 
+ */
+export function listBulkInvocationsForAssignments(axios, bulk, includeCommand, startDate, endDate, paging) {
+  let query = ''
+  let firstParam = true
+
+  if (includeCommand || paging || endDate || startDate) {
+    query += '?'
+  }
+  if (includeCommand) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'includeCommand=' + includeCommand
+    firstParam = false
+  }
+  if (startDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'startDate=' + startDate
+    firstParam = false
+  }
+  if (endDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'endDate=' + endDate
+    firstParam = false
+  }
+  if (paging) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += paging
+  }
+  return restAuthPost(axios, '/assignments/bulk/invocations' + query, bulk)
+}
+
+/**
+ * List location events for device assignment.
+ * @param {*} axios 
+ * @param {*} bulk
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} paging 
+ */
+export function listBulkLocationsForAssignments(axios, bulk, startDate, endDate, paging) {
+  let query = ''
+  let firstParam = true
+
+  if (paging || endDate || startDate) {
+    query += '?'
+  }
+  if (startDate) {
+    query += '&startDate=' + startDate
+    firstParam = false
+  }
+  if (endDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'endDate=' + endDate
+    firstParam = false
+  }
+  if (paging) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += paging
+  }
+  return restAuthPost(axios, '/assignments/bulk/locations' + query, bulk)
+}
+
+/**
+ * List measurement events for multiple assignments.
+ * @param {*} axios 
+ * @param {*} bulk
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} paging 
+ */
+export function listBulkMeasurementsForAssignments(axios, bulk, startDate, endDate, paging) {
+  let query = ''
+  let firstParam = true
+
+  if (paging || endDate || startDate) {
+    query += '?'
+  }
+  if (startDate) {
+    query += '&startDate=' + startDate
+    firstParam = false
+  }
+  if (endDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'endDate=' + endDate
+    firstParam = false 
+  }
+  if (paging) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += paging
+  }
+  return restAuthPost(axios, '/assignments/bulk/measurements' + query, bulk)
+}
+
+/**
+ * List measurement events for an assignment as a chart series.
+ * 
+ * @param {*} axios 
+ * @param {*} axios 
+ * @param {*} bulk 
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} mxIds 
+ * @param {*} paging 
+ */
+export function listBulkMeasurementsForAssignmentsAsChartSeries(axios, 
+  axios, bulk, startDate, endDate, mxIds, paging) {
+  let query = ''
+  let firstParam = true
+
+  if (paging || endDate || startDate) {
+    query += '?'
+  }
+  if (startDate) {
+    query += '&startDate=' + startDate
+    firstParam = false
+  }
+  if (endDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'endDate=' + endDate
+    firstParam = false
+  }
+  if (paging) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += paging
+    firstParam = false;
+  }
+  if (mxIds) {
+    if (firstParam) {
+      query += '&';
+    }
+    for (var i = 0; i < mxIds.length; i++) {
+      query += '&measurementIds=' + mxIds[i]
+    }
+  }
+  return restAuthPost(axios, '/assignments/bulk/measurements/series' + query, bulk)
+}
+
+/**
+ * List command response events for assignment.
+ * @param {*} axios 
+ * @param {*} bulk 
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} paging 
+ */
+export function listBulkResponsesForAssignments(axios, bulk, startDate, endDate, paging) {
+  let query = ''
+  let firstParam = true
+
+  if (paging || endDate || startDate) {
+    query += '?'
+  }
+  if (startDate) {
+    query += '&startDate=' + startDate
+    firstParam = false
+  }
+  if (endDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'endDate=' + endDate
+    firstParam = false
+  }
+  if (paging) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += paging
+  }
+  return restAuthPost(axios, '/assignments/bulk/responses' + query, bulk)
+}
+
+/**
+ * List state change events for a device assignment.
+ * @param {*} axios 
+ * @param {*} bulk 
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} paging 
+ */
+export function listBulkStateChangesForAssignments(axios, bulk, startDate, endDate, paging) {
+  let query = ''
+  let firstParam = true
+
+  if (paging || endDate || startDate) {
+    query += '?'
+  }
+  if (startDate) {
+    query += '&startDate=' + startDate
+    firstParam = false
+  }
+  if (endDate) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += 'endDate=' + endDate
+    firstParam = false
+  }
+  if (paging) {
+    if (firstParam) {
+      query += '&'
+    }
+    query += paging
+  }
+  return restAuthPost(axios, '/assignments/bulk/statechanges' + query, bulk)
+}

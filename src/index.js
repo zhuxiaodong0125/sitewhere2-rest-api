@@ -82,7 +82,14 @@ export {
   createCommandInvocationForAssignment,
   scheduleCommandInvocation,
   listCommandInvocationsForAssignment,
-  listCommandResponsesForAssignment
+  listCommandResponsesForAssignment,
+  listBulkAlertsForAssignments,
+  listBulkInvocationsForAssignments,
+  listBulkLocationsForAssignments,
+  listBulkMeasurementsForAssignments,
+  listBulkMeasurementsForAssignmentsAsChartSeries,
+  listBulkResponsesForAssignments,
+  listBulkStateChangesForAssignments
 } from './sitewhere-device-assignments-api'
 
 export {
