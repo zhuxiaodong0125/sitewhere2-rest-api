@@ -639,6 +639,273 @@
   }
 
   /**
+   * List alert events for device assignment.
+   * @param {*} axios 
+   * @param {*} bulk 
+   * @param {*} startDate 
+   * @param {*} endDate 
+   * @param {*} paging 
+   */
+  function listBulkAlertsForAssignments(axios$$1, bulk, startDate, endDate, paging) {
+    var query = '';
+    var firstParam = true;
+
+    if (paging || endDate || startDate) {
+      query += '?';
+    }
+    if (startDate) {
+      query += '&startDate=' + startDate;
+      firstParam = false;
+    }
+    if (endDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'endDate=' + endDate;
+      firstParam = false;
+    }
+    if (paging) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += paging;
+    }
+    return restAuthPost(axios$$1, '/assignments/bulk/alerts' + query, bulk);
+  }
+
+  /**
+   * List command invocation events for assignment.
+   * @param {*} axios 
+   * @param {*} bulk 
+   * @param {*} includeCommand 
+   * @param {*} startDate 
+   * @param {*} endDate 
+   * @param {*} paging 
+   */
+  function listBulkInvocationsForAssignments(axios$$1, bulk, includeCommand, startDate, endDate, paging) {
+    var query = '';
+    var firstParam = true;
+
+    if (includeCommand || paging || endDate || startDate) {
+      query += '?';
+    }
+    if (includeCommand) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'includeCommand=' + includeCommand;
+      firstParam = false;
+    }
+    if (startDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'startDate=' + startDate;
+      firstParam = false;
+    }
+    if (endDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'endDate=' + endDate;
+      firstParam = false;
+    }
+    if (paging) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += paging;
+    }
+    return restAuthPost(axios$$1, '/assignments/bulk/invocations' + query, bulk);
+  }
+
+  /**
+   * List location events for device assignment.
+   * @param {*} axios 
+   * @param {*} bulk
+   * @param {*} startDate 
+   * @param {*} endDate 
+   * @param {*} paging 
+   */
+  function listBulkLocationsForAssignments(axios$$1, bulk, startDate, endDate, paging) {
+    var query = '';
+    var firstParam = true;
+
+    if (paging || endDate || startDate) {
+      query += '?';
+    }
+    if (startDate) {
+      query += '&startDate=' + startDate;
+      firstParam = false;
+    }
+    if (endDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'endDate=' + endDate;
+      firstParam = false;
+    }
+    if (paging) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += paging;
+    }
+    return restAuthPost(axios$$1, '/assignments/bulk/locations' + query, bulk);
+  }
+
+  /**
+   * List measurement events for multiple assignments.
+   * @param {*} axios 
+   * @param {*} bulk
+   * @param {*} startDate 
+   * @param {*} endDate 
+   * @param {*} paging 
+   */
+  function listBulkMeasurementsForAssignments(axios$$1, bulk, startDate, endDate, paging) {
+    var query = '';
+    var firstParam = true;
+
+    if (paging || endDate || startDate) {
+      query += '?';
+    }
+    if (startDate) {
+      query += '&startDate=' + startDate;
+      firstParam = false;
+    }
+    if (endDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'endDate=' + endDate;
+      firstParam = false;
+    }
+    if (paging) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += paging;
+    }
+    return restAuthPost(axios$$1, '/assignments/bulk/measurements' + query, bulk);
+  }
+
+  /**
+   * List measurement events for an assignment as a chart series.
+   * 
+   * @param {*} axios 
+   * @param {*} bulk 
+   * @param {*} startDate 
+   * @param {*} endDate 
+   * @param {*} mxIds 
+   * @param {*} paging 
+   */
+  function listBulkMeasurementsForAssignmentsAsChartSeries(axios$$1, bulk, startDate, endDate, mxIds, paging) {
+    var query = '';
+    var firstParam = true;
+
+    if (paging || endDate || startDate) {
+      query += '?';
+    }
+    if (startDate) {
+      query += '&startDate=' + startDate;
+      firstParam = false;
+    }
+    if (endDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'endDate=' + endDate;
+      firstParam = false;
+    }
+    if (paging) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += paging;
+      firstParam = false;
+    }
+    if (mxIds) {
+      if (firstParam) {
+        query += '&';
+      }
+      for (var i = 0; i < mxIds.length; i++) {
+        query += '&measurementIds=' + mxIds[i];
+      }
+    }
+    return restAuthPost(axios$$1, '/assignments/bulk/measurements/series' + query, bulk);
+  }
+
+  /**
+   * List command response events for assignment.
+   * @param {*} axios 
+   * @param {*} bulk 
+   * @param {*} startDate 
+   * @param {*} endDate 
+   * @param {*} paging 
+   */
+  function listBulkResponsesForAssignments(axios$$1, bulk, startDate, endDate, paging) {
+    var query = '';
+    var firstParam = true;
+
+    if (paging || endDate || startDate) {
+      query += '?';
+    }
+    if (startDate) {
+      query += '&startDate=' + startDate;
+      firstParam = false;
+    }
+    if (endDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'endDate=' + endDate;
+      firstParam = false;
+    }
+    if (paging) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += paging;
+    }
+    return restAuthPost(axios$$1, '/assignments/bulk/responses' + query, bulk);
+  }
+
+  /**
+   * List state change events for a device assignment.
+   * @param {*} axios 
+   * @param {*} bulk 
+   * @param {*} startDate 
+   * @param {*} endDate 
+   * @param {*} paging 
+   */
+  function listBulkStateChangesForAssignments(axios$$1, bulk, startDate, endDate, paging) {
+    var query = '';
+    var firstParam = true;
+
+    if (paging || endDate || startDate) {
+      query += '?';
+    }
+    if (startDate) {
+      query += '&startDate=' + startDate;
+      firstParam = false;
+    }
+    if (endDate) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += 'endDate=' + endDate;
+      firstParam = false;
+    }
+    if (paging) {
+      if (firstParam) {
+        query += '&';
+      }
+      query += paging;
+    }
+    return restAuthPost(axios$$1, '/assignments/bulk/statechanges' + query, bulk);
+  }
+
+  /**
    * API calls associated with SiteWhere batch operations.
    */
 
@@ -1454,6 +1721,13 @@
   exports.scheduleCommandInvocation = scheduleCommandInvocation;
   exports.listCommandInvocationsForAssignment = listCommandInvocationsForAssignment;
   exports.listCommandResponsesForAssignment = listCommandResponsesForAssignment;
+  exports.listBulkAlertsForAssignments = listBulkAlertsForAssignments;
+  exports.listBulkInvocationsForAssignments = listBulkInvocationsForAssignments;
+  exports.listBulkLocationsForAssignments = listBulkLocationsForAssignments;
+  exports.listBulkMeasurementsForAssignments = listBulkMeasurementsForAssignments;
+  exports.listBulkMeasurementsForAssignmentsAsChartSeries = listBulkMeasurementsForAssignmentsAsChartSeries;
+  exports.listBulkResponsesForAssignments = listBulkResponsesForAssignments;
+  exports.listBulkStateChangesForAssignments = listBulkStateChangesForAssignments;
   exports.getBatchOperation = getBatchOperation;
   exports.listBatchOperations = listBatchOperations;
   exports.listBatchOperationElements = listBatchOperationElements;
