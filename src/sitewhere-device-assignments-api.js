@@ -208,7 +208,8 @@ export function listBulkAlertsForAssignments(axios, bulk, startDate, endDate, pa
 /**
  * List command invocation events for assignment.
  * @param {*} axios 
- * @param {*} bulk
+ * @param {*} bulk 
+ * @param {*} includeCommand 
  * @param {*} startDate 
  * @param {*} endDate 
  * @param {*} paging 
@@ -324,7 +325,6 @@ export function listBulkMeasurementsForAssignments(axios, bulk, startDate, endDa
  * List measurement events for an assignment as a chart series.
  * 
  * @param {*} axios 
- * @param {*} axios 
  * @param {*} bulk 
  * @param {*} startDate 
  * @param {*} endDate 
@@ -332,7 +332,7 @@ export function listBulkMeasurementsForAssignments(axios, bulk, startDate, endDa
  * @param {*} paging 
  */
 export function listBulkMeasurementsForAssignmentsAsChartSeries(axios, 
-  axios, bulk, startDate, endDate, mxIds, paging) {
+  bulk, startDate, endDate, mxIds, paging) {
   let query = ''
   let firstParam = true
 
