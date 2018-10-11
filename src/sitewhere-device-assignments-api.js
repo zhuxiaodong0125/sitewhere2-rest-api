@@ -333,36 +333,23 @@ export function listBulkMeasurementsForAssignments(axios, bulk, startDate, endDa
  */
 export function listBulkMeasurementsForAssignmentsAsChartSeries(axios, 
   bulk, startDate, endDate, mxIds, paging) {
-  let query = ''
-  let firstParam = true
+  var query = '';
 
-  if (paging || endDate || startDate) {
-    query += '?'
-  }
-  if (startDate) {
-    query += '&startDate=' + startDate
-    firstParam = false
-  }
-  if (endDate) {
-    if (firstParam) {
-      query += '&'
-    }
-    query += 'endDate=' + endDate
-    firstParam = false
+  if (startDate || endDate || mxIds || paging) {
+    query += '?';
   }
   if (paging) {
-    if (firstParam) {
-      query += '&'
-    }
-    query += paging
-    firstParam = false;
+    query += paging;
+  }
+  if (startDate) {
+    query += '&startDate=' + startDate;
+  }
+  if (endDate) {
+    query += '&endDate=' + endDate;
   }
   if (mxIds) {
-    if (firstParam) {
-      query += '&';
-    }
     for (var i = 0; i < mxIds.length; i++) {
-      query += '&measurementIds=' + mxIds[i]
+      query += '&measurementIds=' + mxIds[i];
     }
   }
   return restAuthPost(axios, '/assignments/bulk/measurements/series' + query, bulk)
